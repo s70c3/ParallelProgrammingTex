@@ -1,41 +1,41 @@
 { %section1_2
-	\subsection{Термины и определения}
-	\par\textbf{Параллельные вычисления} – 
-способ организации вычислений, при котором программа представляет из себя набор взаимодействующих модулей, работающих одновременно. Как правило понятие параллелизма может включать:
+	\subsection{Terms and Definitions}
+	\par\textbf{Parallel computing} – 
+A method of organizing calculations in which the program is a set of interacting modules that work simultaneously. Typically, the concept of concurrency may include:
 		\begin{enumerate}
-			\item\textbf{Параллелизм уровня инструкций} - одно ядро процессора может выполнять несколько инструкций одновременно. Например, такая технология реализована в процессорах Pentium 4 компании Intel.
-			\item\textbf{Гипертрединг} - одно ядро процессора спроектировано так, что может выполнять работу сразу двух тредов. Реализована в процессорах серии Intel Core i7. При выполнении лабораторных работ важно отключать этот пункт в BIOS (если процессор совместим с данной технологией), так как он существенно влияет на показатели параллельного ускорения и эффективности.
-			\item\textbf{Многоядерное программирование} -  способ решения вычислительных задач с одновременным выполнением частей программы на разных физических вычислительных ядрах. Все вычислительные ядра имеют общие банки памяти, так как находятся на одной вычислительной машине. Включает себя случай многоядерной архитектуры процессора и многопроцессорной архитектуры системы, в которой находится несколько процессоров, так как в обоих случаях программа выполняется на нескольких ядрах одного или множества процессоров, но на одной физической ЭВМ.
-			\item\textbf{Распределенные вычисления} - способ решения трудоёмких вычислительных задач с использованием нескольких компьютеров, чаще всего объединённых в параллельную вычислительную систему. Разные части программы могут выполняться на разных компьютерах.
+			\item\textbf{Instruction level parallelism} - one processor core can execute several instructions simultaneously. For example, this technology is implemented in Intel Pentium 4 processors.
+			\item\textbf{Hypertreading} - one processor core is designed so that it can do the work of two threads at once. Implemented in the Intel Core i7 series processors. When performing laboratory work, it is important to disable this in the BIOS (if the processor is compatible with this technology), since it significantly affects the performance of parallel acceleration and efficiency.
+			\item\textbf{Multi core programming} -  a method for solving computational problems with simultaneous execution of program parts on different physical computing cores. All cores have shared memory banks, as they are located on the same computer. It includes the case of a multi-core processor architecture and a multi-processor architecture of a system in which there are several processors, since in both cases the program runs on several cores of one or many processors, but on one physical computer.
+			\item\textbf{Distributed computing} -a way to solve time-consuming computing problems using several computers, most often combined into a parallel computing system. Different parts of the program can run on different computers.
 		\end{enumerate}
-	Обычно последние два понятия физически реализуются с помощью архитектур \textit{SMP} и \textit{MMP}, подробнее о которых можно прочитать в следующем разделе.
-	\parВажно различать понятия ''параллельные вычисления'' и ''параллельные технологии''. Разберем следующие понятия, которые, хотя и являются параллельными технологиями (на уровне ядра или межъядерного взаимодействия), однако не являются параллельными вычислениями, но часто \textbf{по ошибке} причисляются к ним:
+Usually the last two concepts are physically implemented using architectures. \textit{SMP} и \textit{MMP}. More details about these architectures can be found in the next section.
+	\par It is important to see difference between the concepts of parallel computing and parallel technologies. Let  analyze the following concepts, which, although they are parallel technologies (at the core or internuclear interaction level), however, are not parallel calculations, but often \ textbf {by mistake} are assigned to them:
 		\begin{itemize}
-			\item\textit{Конвейерная обработка данных (суперскалярность)} представляет собой одновременную обработку процессором нескольких инструкций, при котором в один момент времени для каждой из инструкций выполняется различный этап выполнения. Например, если какой-либо процессор может одновременно получать, раскодировать, и выполнить инструкцию, то он во время получения первой инструкции может раскодировать вторую и выполнять третью (рисунок~\ref{pipelineExample:image}). Этот способ организации вычислений не является параллельными вычислениями, потому что инструкции все равно выполняются последовательно, а так же задействовано только одно ядро.
+			\item\textit{Pipeline data processing (superscalarity)} represents the simultaneous processing by the processor of several instructions, in which at one time for each of the instructions a different execution step is performed. For example, if any processor can simultaneously receive, decode, and execute an instruction, then when it receives the first instruction, it can decode the second and execute the third (figure ~\ref {pipelineExample: image}). This way of organizing calculations is not parallel computing, because the instructions are still executed sequentially, and only one core is involved.
 				\begin{figure}[H]
 					\includegraphics[width=1\linewidth]{pipelineExample}
-					\caption{\textit{Конвейерная обработка инструкций}}
+					\caption{\textit{Instruction pipelining}}
 					\label{pipelineExample:image}
 				\end{figure}
-			\item\textit{SIMD-расширения (MMX, SSE)} обеспечивают параллелизм на уро-вне данных. Например, процессор может одновременно умножать 4 числа вместо одного в помощью SSE инструкции. Однако поток команд все равно остается одиночным, т.е. выполняется одна инструкция программы за промежуток времени, что не является случаем параллельных вычислений.
-			\item\textit{Вытесняющая многозадачность} организуется операционной системой. Несколько процессов стоят в очереди выполнения и ОС сама решает как распорядиться процессорным временем между ними. Если у первого потока задан больший приоритет чем у второго, то ОС будет выделять больше времени на выполнение первого потока, одна в один момент времени будет выполняться только один поток, следовательно, вытесняющая многозадачность тоже не входит в понятие параллельных вычислений.
+			\item\textit{SIMD-etensions (MMX, SSE)} provide concurrency at the data level. For example, a processor can simultaneously multiply 4 numbers instead of one using the SSE instruction. However, the command flow still remains single, i.e. one program instruction is executed in a period of time, which is not the case of parallel computing.
+			\item\textit{Preemptive Multitasking} organized by the operating system. Several processes are in the execution queue and the OS decides how to manage the processor time between them. If the first thread is given a higher priority than the second, then the OS will allocate more time to execute the first thread, only one thread will be executed at a time, therefore, preemptive multitasking is also not included in the concept of parallel computing.
 		\end{itemize}
-	\parДля организации параллельных вычислений используются различные технологии распараллеливания:
+	\par Various parallelization technologies are used to organize parallel computing:
 		\begin{itemize}
-			\item\textbf{Process (процесс)} - наиболее тяжеловесный механизм, применяемый для распараллеливания. Каждый процесс имеет свое независимое адресное пространство, поэтому синхронизация данных между процессами долгая и сложная. Может включать в себя несколько потоков исполнения.
-			\item\textbf{Thread (поток исполнения, нить, тред, поток)} выполняется независимо от других потоков, но имеет общее адресное пространство с другими потоками в рамках одного процесса. На этом уровне используется механизмы синхронизации данных (будут рассмотрены далее).
-			\item\textbf{Fiber (волокно)} - легковесный поток выполнения. Также как и треды, fiber'ы имеют общее адресное пространство, однако используют совместную многозадачность вместо вытесняющей. ОС не переключает контекст из одного треда в другой, вместо этого главный поток сам выделяет время для работы дочернего fiber, либо блокируется логически (то есть жизненным циклом fiber'a управляет программист). Также все fiber'ы работают на одном ядре, в отличии от тредов, которые могут работать на разных ядрах.
+			\item\textbf{Process} - the most heavyweight mechanism used for parallelization. Each process has its own independent address space, so data synchronization between processes is long and complicated. May include several threads of execution.
+			\item\textbf{Thread} It runs independently of other threads, but has a common address space with other threads in the same process. At this level, data synchronization mechanisms are used (will be discussed later).
+			\item\textbf{Fiber} - lightweight thread of execution. Like threads, fiber has a common address space, however, it uses joint multitasking instead of preemptive one. The OS does not switch the context from one thread to another, instead, the main thread itself allocates time for the child fiber to work, or is blocked logically (that is, the programmer controls the fiber life cycle). Also, all fibers work on one core, unlike threads, which can work on different kernels.
 		\end{itemize}
-	\parДля лучшего понимания тредов схематично рассмотрим его жизненный цикл (lifecycle). На рисунке~\ref{threadLifecycle:image} видно, что поток может находится в трех состояниях - готовность, ожидание и выполнение. После создания потока он пребывает в состоянии готовности. Затем ОС принимает решение о смене его состояния (вытясняющая многозадачноость). Для fiber жизненный цикл такой же, но переходами между ними управляет программист или механизмы синхронизации.
-	\parРазные стандарты языков программирования могут добавлять в жизненный цикл потоков новые состояния, например, блокировка потока, прерывание работы потока и остальные, однако общая схема работы остается той же.
+	\par For a better understanding of threads, we will schematically consider its life cycle. Figure ~\ref{threadLifecycle:image} shows that the flow can be in three states - readiness, expectation and fulfillment. After creating the stream, it is in a ready state. Then, the OS decides to change its state (clarifying multitasking). For fiber, the life cycle is the same, but the programmer or synchronization mechanisms control the transitions between them.
+	\par Different standards of programming languages can add new states to the life cycle of threads, for example, blocking a thread, interrupting a thread, and others, but the general scheme of work remains the same.
 		\begin{figure}[H]
 			\includegraphics[width=0.9\linewidth]{threadLifecycle}
-			\caption{\textit{Жизненный цикл потока}}
+			\caption{\textit{Thread lifecycle}}
 			\label{threadLifecycle:image}
 		\end{figure}
-	\parВ среде программистов существуют понятия \textbf{потокобезопасной (thread-safe)} и \textbf{реэнтерабельной (reentrant)} функции, однако в разных сообществах они могут иметь различные значения. В таблице~\ref{threadSafeReentrant:table} написаны определения из разных источников.
+	\pa Among programmers there are concepts of \textbf{thread-safe} и \textbf{reentrant} functions, however, they may have different meanings in different communities. Definitions are written from various sources in table ~\ref{threadSafeReentrant:table}.
 	\begin{table}[H]
-		\caption{Определения thread-safe и reentrant функций}
+		\caption{Definitions of thread-safe and reentrant functions}
 		\label{threadSafeReentrant:table}
 		\begin{center}
 			%\begin{tabular}{c}
@@ -45,19 +45,19 @@
 			%\end{tabular}
 		\end{center}
 	\end{table}
-	\parРассмотрим примеры функций, подходящие под определение сообщества Linux.
+	\par Consider examples of functions that fit the definition of the Linux community.
 	\begin{figure}[H]
 		\lstinputlisting{swapExample1.cpp}
 	\end{figure}
-	\parДанная функция не является не потокобезопасной, не реентерабельной, потому что все потоки вызывающие ее будут использовать общую переменную t. Если вызвать функцию внутри ее самой, то перезапишется значение t и родительская функция отработает неправильно. Попробуем исправить эти ошибки, объявив переменную t типа \textunderscore \textunderscore threadint.
+	\par This function is not thread safe, not reentrant, because all threads calling it will use the common variable t. If you call the function inside itself, then the value of t is overwritten and the parent function will not work correctly. Let's try to fix these errors by declaring a variable of type t \textunderscore \textunderscore threadint.
 	\begin{figure}[H]
 		\lstinputlisting{swapExample2.cpp}
 	\end{figure}
-	\parТеперь компилятор создаст копию переменной для каждого потока t и функция станет потокобезопасной, однако она все еще не реентерабельна по той же причине. Будем сохранять значение глобальной переменной t в начале функции и восстанавливать ее в конце.
+	\par Now the compiler will create a copy of the variable for each thread t and the function will become thread safe, however, it is still not reentrant for the same reason. We will save the value of the global variable t at the beginning of the function and restore it at the end.
 	\begin{figure}[H]
 		\lstinputlisting{swapExample3.cpp}
 	\end{figure}
-	\parНовая функция реентерабельна, но снова потоконебезопасна. Наконец, приведем пример стандартной и правильной реализации swap(), которая потокобезопасна и реентерабельна:
+	\par The new function is reentrant, but again non thread-safe. Finally, we give an example of a standard and proper implementation of swap(), which is thread safe and reentrant:
 	\begin{figure}[H]
 		\lstinputlisting{swapExample4.cpp}
 	\end{figure}
