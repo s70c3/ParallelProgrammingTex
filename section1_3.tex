@@ -1,33 +1,33 @@
 { %section1_3
-	\subsection{Классификация параллельных систем (архитектур)}
-	\parПо физической архитектуре параллельные системы можно разделить на 2 типа:
+	\subsection{Classification of parallel systems (architectures)}
+	\par By physical architecture, parallel systems can be divided into 2 types:
 		\begin{enumerate}
-			\item\textbf{SMP} (Shared Memory Parallelism, Symmetric MultiProcessor system) – многопроцессорность, многоядерность, GPGPU. 
-			\item\textbf{MPP} (Massively Parallel Processing) – кластерные системы, GRID (распределенные вычисления).
+			\item\textbf{SMP} (Shared Memory Parallelism, Symmetric MultiProcessor system) – multiprocessing, multicore, GPGPU. 
+			\item\textbf{MPP} (Massively Parallel Processing) – cluster systems, GRID (distributed computing).
 		\end{enumerate}
-	\parДалее рассмотрим эти две архитектуры подробнее.
-	\par\textbf{\textit{SMP}}  - архитектура многопроцессорных систем, в которой два или более одинаковых процессора сравнимой производительности подключаются единообразно к общей памяти (и периферийным устройствам) и выполняют одни и те же функции (почему, собственно, система и называется симметричной). В английском языке SMP-системы носят также название tightly coupled multiprocessors, так как в этом классе систем процессоры тесно связаны друг с другом через общую шину и имеют равный доступ ко всем ресурсам вычислительной системы (памяти и устройствам ввода-вывода) и управляются все одной копией операционной системы. В этой архитектуре все процессоры расположены на одной физической машине, поэтому они имеют общие банки памяти. Существует два вида подключения процессоров к общей памяти:
+	\par Next, we consider these two architectures in more detail.
+	\par\textbf{\textit{SMP}}  - architecture of multiprocessor systems in which two or more identical processors of comparable performance are connected in the same way to the shared memory (and peripheral devices) and perform the same functions (why, in fact, the system is called symmetrical). SMP systems are also called tightly coupled multiprocessors, since in this class of systems processors are closely connected to each other via a common bus and have equal access to all resources of the computing system (memory and input-output devices) and are controlled by all one copy of the operating system. In this architecture, all processors are located on the same physical machine, so they have common memory banks. There are two types of connecting processors to shared memory:
 		\begin{itemize}
-			\itemСоединение по общей шине (system bus) изображено на рисунке~\ref{SMPSystemBus:image}. В этом случае только один процессор может обращаться к памяти в каждый данный момент, что накладывает существенное ограничение на количество процессоров, поддерживаемых в таких системах. Чем больше процессоров, тем больше нагрузка на общую шину, тем дольше должен ждать каждый процессор, пока освободится шина, чтобы обратиться к памяти. Снижение общей производительности такой системы с ростом количества процессоров происходит очень быстро, поэтому обычно в таких системах количество процессоров не превышает 2-4. Примером SMP-машин с таким способом соединения процессоров являются любые многопроцессорные серверы начального уровня.
+			\item The connection on the system bus is shown in the figure.~\ref{SMPSystemBus:image}. In this case, only one processor can access memory at any given moment, which imposes a significant limitation on the number of processors supported in such systems. The more processors, the greater the load on the shared bus, the longer each processor must wait until the bus is free to access the memory. A decrease in the overall performance of such a system with an increase in the number of processors occurs very quickly, therefore, usually in such systems the number of processors does not exceed 2-4. An example of SMP machines with this method of connecting processors is any entry-level multiprocessor server.
 				\begin{figure}[H]
 					\includegraphics[width=1\linewidth]{SMPSystemBus}
-					\caption{\textit{Архитектура SMP. Подключение процессоров по системной шине}}
+					\caption{\textit{SMP architecture. Processor connection via system bus}}
 					\label{SMPSystemBus:image}
 				\end{figure}
-			\itemКоммутируемое соединение (crossbar switch) изображено на рисунке~\ref{SMPCrossbarSwitch:image}. При таком соединении вся общая память делится на банки памяти, каждый банк памяти имеет свою собственную шину, и процессоры соединены со всеми шинами, имея доступ по ним к любому из банков памяти. Такое соединение схемотехнически более сложное, но оно позволяет процессорам обращаться к общей памяти одновременно. Это позволяет увеличить количество процессоров в системе до 8-16 без заметного снижения общей производительности.
+			\item The crossbar switch is shown in the figure.~\ref{SMPCrossbarSwitch:image}. With this connection, the entire shared memory is divided into memory banks, each memory bank has its own bus, and the processors are connected to all buses, having access to any of the memory banks through them. Such a connection is technologically more complex, but it allows processors to access shared memory at the same time. This allows you to increase the number of processors in the system to 8-16 without a noticeable decrease in overall performance.
 				\begin{figure}[H]
 					\includegraphics[width=1\linewidth]{SMPCrossbarSwitch}
-					\caption{\textit{Архитектура SMP. Подключение процессоров через коммутируемое соединение}}
+					\caption{\textit{SMP architecture. Processor connection via dial-up connection}}
 					\label{SMPCrossbarSwitch:image}
 				\end{figure}
 		\end{itemize}
-	\parПлюсами такого подхода является высокая скорость обмена данными между процессорами и относительная простота в расработке ПО. Однако могут возникнуть проблемы с масштабируемостью системы(если на материнской плате есть только 2 сокета, 3 процессора уже не поставить).
-	\par\textbf{\textit{MMP}} - архитектура многопроцессорных систем, при которой память между процессорами разделена физически. На таких системах проводятся распределенные вычисления. Система строится из отдельных узлов, содержащих процессор, локальный банк оперативной памяти, коммуникационные процессоры или сетевые адаптеры, иногда — жёсткие диски и другие устройства ввода-вывода. Доступ к банку оперативной памяти данного узла имеют только процессоры из этого же узла. Узлы соединяются специальными коммуникационными каналами(рисунок~\ref{MMP:image}).
+	\par The advantages of this approach are the high speed of data exchange between processors and the relative simplicity of software development. However, there may be problems with the scalability of the system (if there are only 2 sockets on the motherboard, you can’t put 3 processors anymore).
+	\par\textbf{\textit{MMP}} - architecture of multiprocessor systems, in which the memory between the processors is physically divided. On such systems, distributed computing is performed. The system is built from separate nodes containing a processor, a local memory bank, communication processors or network adapters, sometimes hard drives and other input-output devices. Access to the memory bank of this node is available only to processors from the same node. The nodes are connected by special communication channels (figure~\ref{MMP:image}).
 		\begin{figure}[H]
 			\includegraphics[width=1\linewidth]{MMP}
-			\caption{\textit{Архитектура MMP}}
+			\caption{\textit{MMP Architecture}}
 			\label{MMP:image}
 		\end{figure}
-	\parПлюсами такого подхода является хорошая масштабируемость (при необходимости в увеличении производительности системы достаточно просто добавить еще узлов). Однако существенно понижается скорость межпроцессорного обмена, так как теперь банки памяти разнесены физически. Также стоимость ПО, распределяющее вычисления, очень высока.
+	\par The advantages of this approach are its good scalability (if necessary, to increase system performance it is enough to simply add more nodes). However, the speed of interprocessor exchange is significantly reduced, since memory banks are now physically separated. Also, the cost of the software that distributes the calculations is very high.
 	\par
 }
