@@ -1,44 +1,44 @@
 { %section1_8
-	\subsection{Lock-free структуры данных}
+	\subsection{Lock-free data structures}
 	\label{lockfree:section}
-	\parВ многопоточных программах проблемы при совместной работе потоков обычно возникать при доступе к общим ресурсам. Помимо блокирующего подхода, используещего примитивы синхронизации, также используется неблокирующий подход. Для того чтобы избежать состояния гонки можно использовать специальные неблокирующие структуры данных. Данный подход основывется на использовании атомарных переменных и lock-free или wait-free объектов.
-	\parРазделяемый объект называется lock-free объектом, если он гарантирует, что некоторый поток закончит выполнение операции над объектом за конечное количество шагов вне зависимости от результатов работы других потоков.
-	\parОбъект является wait-free, если каждый поток завершит операцию над объектом за конечное число шагов.
-	\parМожет возникнуть вопрос зачем нужны неблокирующие структуры данных, если можно использовать примитивы синхронизации для доступа к обычной структуре данных. Lock-free структуры имеют ряд преимущест над блокирующими структурами данных. Так, по пропуской способности они превосходят блокирующие в 1.5 -- 3 раза, однако как блокирующие, так и неблокирующие очереди имеют слабую масштабируемость относительно числа потоков. По величине задержки элементов в очереди неблокирующие очереди также имеют лучшие характеристики, однако их преимущество достаточно мало. Также использование примитивов синхронизации может привести к deadlock, а также могут возникать ошибки, связанные с забыванием захвата или освобождения примитивов.
-	\par Lock-free структуры данных не содержат блокировок и остается в консинстентном состоянии в независимости от количества потоков, одновременно обращающихся к ней. Такие структуры данных можно организовать с помощью RMW (read-modify-write) -- операции чтения, изменения и записи, происходящая атомарно.
-	\parПримером RMW операции может служить CAS. В библиотеке C++ существует два варианта реализации этой операции: weak и strong (рисунок~\ref{CAS:image}). Weak версия может вернуть false в случае, когда считанное значение было равно ожидаемому. Strong всегда возвращает правильное значение.
+	\par In multi-threaded programs, problems with thread collaboration usually occur when accessing shared resources. In addition to the blocking approach using synchronization primitives, they also use the non-blocking approach. To avoid race conditions, you can use special non-blocking data structures. This approach is based on the use of atomic variables and lock-free or wait-free objects.
+	\par A shared object is called a lock-free object if it guarantees that some thread completes the operation on the object in a finite number of steps, regardless of the results of other threads.
+	\par An object is wait-free if each thread completes an operation on an object in a finite number of steps.
+	\par The question may arise: why are non-blocking data structures needed, if synchronization primitives can be used to access the usual data structure. Lock-free structures have several advantages over blocking data structures. So, in terms of bandwidth, they exceed blocking ones by 1.5–3 times, however, both blocking and non-blocking queues have poor scalability with respect to the number of threads. In terms of the delay of elements in the queue, non-blocking queues also have better characteristics, but their advantage is quite small. Also, the use of synchronization primitives can lead to deadlock, and errors can also occur associated with forgetting to capture or release primitives.
+	\par Lock-free data structures do not contain locks and remain in a consistent state regardless of the number of threads accessing it at the same time. Such data structures can be organized using RMW - read, modify and write operations that occur atomically.
+	\par An example of RMW operation is CAS. In the C ++ library, there are two options for implementing this operation: weak and strong (figure ~ \ref{CAS: image}). Weak version may return false in case when the read value was equal to the expected one. Strong always returns the correct value.
 	\begin{figure}[H]
 		\includegraphics[width=1\linewidth]{CAS}
-		\caption{\textit{Сигнатуры CAS операции в библиотеке C++}}
+		\caption{\textit{Signatures of CAS operations in the C ++ library}}
 		\label{CAS:image}
 	\end{figure}
-	\parАльтернативой CAS операций служит пара LL/SC операций в ARM процессорах. Load-link операция загружает значение из памяти, а store-conditional устанавливает новое значение, но только в том случае, если область памяти не менялась. Для реализации LL/SC операций пришлось изменить структуру кэша: к каждой линии кэша добавляется флаг LINK. Флаг устанавливается при операции LL и сбрасывается при SC или вытеснении кэш-линии. LL/SC операции не подвержены проблеме ABA, однако из-за аппаратной реализации может возникать false sharing. В современных процессорах длина кэш-линии составляет 64 - 128 байт, следовательно, в одной кэш-линии может находиться несколько переменных. При работе с несколькими переменными в одной линии у LL/SC операций будет общий флаг LINK, что может привести к неправильно работе. Чтобы данной проблемы не возникало, следует резмещать по одной переменной в линии.
+	\par An alternative to CAS operations is a pair of LL/SC operations in ARM processors. The load-link operation loads a value from memory, and store-conditional sets a new value, but only if the memory area has not changed. To implement LL/SC operations, we had to change the cache structure so that a LINK flag is added to each cache line. The flag is set during LL operation and is reset during SC or cache line preemption. LL/SC operations are not subject to the ABA problem, however, false sharing may occur due to hardware implementation. In modern processors, the cache line length is 64 - 128 bytes, therefore, several variables can be in the same cache line. When working with multiple variables on the same line, LL/SC operations will have a common LINK flag, which can lead to incorrect operation. In order to avoid this problem, one should place one variable in a line.
 	\begin{figure}[H]
 		\lstinputlisting{falseSharingLLSCExample.cpp}
 	\end{figure}
-	\par CAS операцию можно достаточно легко реализовать с помощью LL/SC операций:
+	\par CAS operation can be quite easily implemented using LL / SC operations:
 	\begin{figure}[H]
 		\lstinputlisting{LLSCthroughCAS.cpp}
 	\end{figure}
-	\parТакже важно понимать, что lock-free алгоритмы чувствительны к переупорядочению машинных инструкций в их коде. Чтобы избежать этого используются барьеры памяти. Барьер памяти X\_Y гарантирует, что все X-операции до барьера будут выполнены до того как начнут выполняться Y-операции после барьера. В теории существует 4 вида барьеров -- LoadLoad, LoadStore, StoreLoad, StoreStore, однако не все из них реализованы по всех архитектурах. Существует 4 модели памяти процессоров: 
+	\par It is also important to understand that lock-free algorithms are sensitive to reordering machine instructions in their code. To avoid this, memory barriers are used. The memory barrier X\_Y ensures that all X-operations before the barrier are executed before the Y-operations after the barrier begin to be executed. In theory, there are 4 types of barriers - LoadLoad, LoadStore, StoreLoad, StoreStore, but not all of them are implemented in all architectures. There are 4 processor memory models:
 	\begin{itemize}  
-		\item\textbf{Relaxed model} -- возможно переупорядочение любых инструкций обращения к памяти, даже зависящих по данным (DEC Alpha).
-		\item\textbf{Weak model} -- возможно переупорядочение любых инструкций чтения и записи, кроме тех, которые имеют зависимости по данным (ARM, PowerPC, Intel Itanium).
-		\item\textbf{Strong model } -- возможно только переупорядочение вида чтение до записи (x86).
-		\item\textbf{Sequentual consistency model} -- любое переупорядочение запрещено.
+		\item\textbf{Relaxed model} -- reordering of any memory access instructions is possible, even depending on the data (DEC Alpha).
+		\item\textbf{Weak model} -- reordering of any read and write instructions is possible, except for those that have data dependencies(ARM, PowerPC, Intel Itanium).
+		\item\textbf{Strong model } -- only reordering read to write is possible (x86).
+		\item\textbf{Sequentual consistency model} -- any reordering is prohibited.
 	\end{itemize}
-	\parСуществуют различные lock-free структуры данных: очереди (со строгим и ослабленным порядком), стек, связные списки, хеш-таблицы. В C++ данные структуры данных можно использовать подключая различные библиотеки. Например, Boost содержит реализацию очереди и стека, а Libcds -- все перечисленные.
-	\parПримером lock-free структуры данных может служить очередь Майкла - Скотта. Эта очередь реализуется на базе односвязного списка и двух указателей, один из которых указывает на голову списка (dummy node), а другой -- на хвост (рисунок~\ref{lockFreeQueue:image}).
+	\par There are various lock-free data structures: queues (with strict and weakened order), stack, linked lists, hash tables. In C ++, data structure data can be used by connecting various libraries. For example, Boost contains the implementation of the queue and stack, and Libcds contains all of the above.
+	\par An example of a lock-free data structure is the Michael-Scott queue. This queue is implemented on the basis of a singly linked list and two pointers, one of which points to the head of the list (dummy node), and the other to the tail (рисунок~\ref{lockFreeQueue:image}).
 	\begin{figure}[H]
 		\includegraphics[width=1\linewidth]{lockFreeQueue}
-		\caption{\textit{Очередь Майкла - Скотта}}
+		\caption{\textit{Michael-Scott queue}}
 		\label{lockFreeQueue:image}
 	\end{figure}
-	\parРассмотрим упрощенный код очереди из библиотеки libcds. Ниже представлена функция enqueue -- добавления в очередь. Сначала переданное значение кладется в node. Затем мы пытаемся положить его в хвост очереди. После получения текущего хвоста указатель продвигается, пока не дойдет до фактического хвоста. Затем значение ставится в конец очереди и хвосту присваивается значение вставленного элемента.
+	\par Consider the simplified queue code from the libcds library. Below is the enqueue function - adding to the queue. First, the passed value is put in node. Then we try to put it in the tail of the line. After receiving the current tail, the pointer advances until it reaches the actual tail. Then the value is put at the end of the queue and the value of the inserted element is assigned to the tail.
 	\begin{figure}[H]
 		\lstinputlisting{lockFreeQueueEnqueue.cpp}
 	\end{figure}
-	\parДля того чтобы достать элемент из очереди (функция dequeue), чтобы очередь не была пуста, а также чтобы хвост и голоса были продвинуты. Код приведен ниже.
+	\par In order to get an element from the queue (dequeue function), so that the queue is not empty, and also that the tail and voices are advanced. The code is below.
 	\begin{figure}[H]
 		\lstinputlisting{lockFreeQueueDequeue.cpp}
 	\end{figure}
