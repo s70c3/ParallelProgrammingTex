@@ -1,8 +1,8 @@
 { %section3_2
-	\subsection{Менеджеры управления памятью для параллельных программ}
-	\parПри вызове функций malloc/free в однопоточной программе не возникает проблем даже при довольно высокой интенсивности вызовов одной из них. Однако в параллельных программах эти функции могут стать узким местом, т.к. при их одновременном использовании из нескольких потоков происходит блокировка общего ресурса (менеджера управления памятью), что может привести к существенной деградации скорости работы многопоточной программы.
-	\parПолучается, что несмотря на формальную потокобезопасность стандартных функций работы с памятью, они могут стать потоконеэффективными при очень интенсивной работе с памятью нескольких параллельно работающих потоков.
-	\parДля решения этой проблемы существует ряд сторонних программ, называющихся ''Менеджер управления памятью (МУП)'' (Memory Allocator), как платных, так и бесплатных с открытым исходным кодом. Каждое из них обладает своими достоинствами и недостатками, которые следует учитывать при выборе. Перечислим наиболее распространённые МУП с указанием ссылок на официальные сайты:
+	\subsection{Memory Managers for Parallel Programs}
+	\par When calling malloc / free functions in a single-threaded program, there are no problems even with a rather high call intensity of one of them. However, in parallel programs, these functions can become a bottleneck because when they are used simultaneously from several threads, a shared resource (memory management manager) is blocked, which can lead to a significant degradation in the speed of a multithreaded program.
+	\par Despite the formal thread safety of standard memory functions, they can become thread-inefficient when the memory of several threads running in parallel is very intensive.
+	\par To solve this problem, there are a number of third-party programs called the "Memory Management Manager (MUP)'' (Memory Allocator), both paid and free, open source. Each of them has its own advantages and disadvantages, which should be considered when choosing. We list the most common MUPs with links to official sites:
 	\begin{itemize}
 		\sloppy
 		\item tcmalloc: \url{http://goog-perftools.sourceforge.net/doc/tcmalloc.html}
@@ -13,7 +13,7 @@
 		\item jemalloc: \url{http://jemalloc.net/}
 		\item mimalloc: \url{https://github.com/microsoft/mimalloc}
 	\end{itemize}
-	\parПеречисленные МУП разработаны таким образом, что ими можно ''незаметно'' для параллельной программы подменить стандартные МУП библиотеки libc языка С. Это значит, что выбор конкретного МУП никак не влияет на исходный код программы, поэтому общая практика использования сторонних МУП такова: параллельная программа изначально создаётся с использованием МУП libc, затем проводится профилирование работающей программы, затем при обнаружении узкого места (bottleneck) в функциях malloc/free принимается решение заменить стандартный МУП одним из перечисленных.
-	\parТакже стоит отметить, что некоторые технологии распараллеливания (например, Intel TBB) уже имеют в своём составе специализированный МУП, оптимизированный для выполнения в многопоточном режиме.
+	\par The listed MUPs are designed in such a way that they can 'silently' replace the standard MUP libraries of the C language C for the parallel program. This means that the choice of a particular MUP does not affect the source code of the program, so the general practice of using third-party MUPs is as follows: parallel program it is initially created using the libc MUP, then the profiling of the running program is performed, then when a bottleneck is detected in the malloc / free functions, a decision is made to replace the standard MUP with one of the listed.
+	\par It should also be noted that some parallelization technologies (for example, Intel TBB) already include a specialized MUP, optimized for multithreaded operation.
 	\par
 }
