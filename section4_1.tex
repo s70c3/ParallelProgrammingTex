@@ -1,16 +1,15 @@
 { %section4_1
-	\subsection{Порядок выполнения работы}
+	\subsection{Work sequence}
 	\begin{enumerate}
-		\itemНа компьютере с многоядерным процессором установить ОС Linux и компилятор GCC версии не ниже 4.7.2. При невозможности установить Linux или отсутствии компьютера с многоядерным процессором можно выполнять лабораторную работу на виртуальной машине.
-		\itemНа языке Cи написать консольную программу lab1.c, решающую задачу, указанную в п.IV (см. ниже). В программе нельзя использовать библиотечные функции сортировки, выполнения матричных операций и расчёта статистических величин.  В программе
-нельзя использовать библиотечные функции, отсутствующие в стандартных заголовочных файлах stdio.h, stdlib.h, math.h, sys/time.h. Задача должна решаться 50 раз с разными начальными значениями генератора случайных чисел (ГСЧ).  Структура программы примерно следующая:
+		\item Install Linux and the GCC compiler version 4.7.2 or higher on a computer with a multi-core processor. If you cannot install Linux or you do not have a computer with a multi - core processor, you can perform laboratory research on a virtual machine.
+		\item Write a console program in C completing task in article 4 (see below). The program cannot use library functions for sorting, performing matrix operations, or calculating statistical values. The program cannot use library functions that are not represented in standard stdio.h, stdlib.h, math.h, sys/time.h header files. You must run the task 50 times with different initial values of the random number generator (RNG). The structure of the program is approximately as follows:
 			\begin{figure}[H]
 				\lstinputlisting{lab1Example.cpp}
 			\end{figure}
-		\itemСкомпилировать написанную программу без использования автоматического распараллеливания с помощью следующей команды: /home/user/gcc -O3 -Wall -Werror -o lab1-seq lab1.c
-		\itemСкомпилировать написанную программу, используя встроенное в gcc средство автоматического распараллеливания Graphite с помощью следующей команды “/home/user/gcc -O3 -Wall -Werror -floop-parallelize-all -ftree-parallelize-loops=K lab1.c -o lab1-par-K” (переменной K поочерёдно присвоить хотя бы 4 различных целых значений, выбор обосновать).
-		\itemВ результате получится одна нераспараллеленная программа и четыре или более распараллеленных.
-		\itemЗакрыть все работающие в операционной системе прикладные программы (включая Winamp, uTorrent, браузеры и Skype), чтобы они не влияли на результаты последующих экспериментов.
+		\item Сompile the program without using automatic parallelization following the next command: /home/user/gcc -O3 -Wall -Werror -o lab1-seq lab1.c
+		\item Compile the written program using the built-in GCC tool for automatic parallelization (Graphite) with the following command  “/home/user/gcc -O3 -Wall -Werror -floop-parallelize-all -ftree-parallelize-loops=K lab1.c -o lab1-par-K” (assign at least 4 different integer values to the variable K in turn and explain your choice).
+		\item The result is one non-parallelized program and four or more parallelized programs.
+		\item Close all application programs running on the operating system (including Winamp, uTorrent, browsers, and Skype) so that they do not affect the results of subsequent experiments.
 		\itemЗапускать файл lab1-seq из командной строки, увеличивая значения N до значения N1, при котором время выполнения превысит 0.01 с. Подобным образом найти значение N=N2, при котором время выполнения превысит 2 с.
 		\itemИспользуя найденные значения N1 и N2, выполнить следующие эксперименты (для автоматизации проведения экспериментов рекомендуется написать скрипт):
 			\begin{itemize}
