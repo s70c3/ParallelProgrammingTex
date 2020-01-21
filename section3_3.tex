@@ -88,7 +88,7 @@
 		\lstinputlisting{OpenMPExample9.cpp}
 	\end{figure}
 	\par We see that now the variable \textit{j} is explicitly defined as local (private). If we use the tmp array, the solution will be different - it can fit inside the parallel section (i.e. each stream will have its own instance of the tmp array independent of the others). Why can'twe just specify the tmp variable in the list of the private command, as was done for \textit{j}? The answer is related to the specifics of the C language: the \textit{tmp} variable is a pointer that does not change during the operation of the loop, but the contents of the memory pointed to by \textit{tmp }change. This means that specifying \textit{tmp} as a private variable would not solve the problem with data racing, because all streams would receive the same tmp address and interfere with each other, writing new values to this address.
-	\par Let's consider one more error typical for parallel programming. The following program calculates the sum of numbers from 1 to 100:
+	\par Let's consider one more error typical for parallel computing. The following program calculates the sum of numbers from 1 to 100:
 	\begin{figure}[H]
 		\lstinputlisting{OpenMPExample10.cpp}
 	\end{figure}
@@ -96,7 +96,8 @@
 	\begin{figure}[H]
 		\lstinputlisting{OpenMPExample11.cpp}
 	\end{figure}
-	Видим начало параллельной области в строке 2 – именно в этом месте OpenMP создаёт несколько потоков. В строке 6 новые потоки не создаются (т.к. отсутствует ключевое слово parallel), но входящие в цикл потоке делят итерации между собой, а не выполняют каждый все итерации целиком. В строке 8 рассчитавший свою частичную сумму поток пытается прибавить эту сумму к общей сумме. Это приходится делать с помощью директивы atomic, которая гарантирует, что потоки не будут мешать друг другу при перезаписи sum. 
+	We see the beginning of the parallel area on line 2 -  at this point OpenMP creates several threads. In line 6, new threads are not created (because the parallel keyword is missing), but the threads entering the loop divide iterations among themselves, and do not complete each iteration as a whole. In line 8, the  thread calculating its partial amount tries to add this amount to the total amount. This has to be done using the atomic directive, which ensures that threads will not interfere with each other when overwriting sum.
+	
 	\par Another difficult point is the reinitialization of the variable \textit{sum} \textunderscore private on line 4: this is necessary because OpenMP does not initialize local variables, even if there are global variables with identical names. This solution is designed to reduce the overhead of copying variables.
 	\par The described approach is working, but it is almost never used in practice, because the OpenMP standard for a whole class of similar tasks offers a higher-level and simpler solution. It consists in using the \textit{reduction} command:
 	\begin{figure}[H]

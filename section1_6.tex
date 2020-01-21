@@ -1,6 +1,6 @@
 { %section1_6
 	\subsection{The main approaches to parallelization}
-	\par In practice, there are a large number of parallel programming patterns. However, all these patterns basically use three basic approaches to parallelization:
+	\par In practice, there are a large number of parallel computing patterns. However, all these patterns basically use three basic approaches to parallelization:
 	\begin{itemize}
 		\item\textbf{Data parallelization:} The programmer finds in the program an array of data whose elements the program sequentially processes in some func function. Then the programmer tries to break this data array into blocks that can be processed in func independently of each other. Then the programmer starts several threads at once, each of which executes func, but at the same time processes data blocks different from other flows in this function.
 		\item\textbf{Instruction parallelization:} The programmer finds in the program sequentially called functions, the process of which does not affect each other (such functions do not change common global variables, and the results of one are not used by the other). Then the programmer starts these functions in parallel threads.
