@@ -1,97 +1,97 @@
 { %section4_4
-	\subsection{Варианты заданий}
-	\parВариант задания выбирается в соответствии с приведёнными ниже описанием этапов, учитывая, что число А = Ф*И*О, где Ф, И, О означают количество букв в фамилии, имени и отчестве студента. Номер варианта в соответствующих таблицах выбирается по формуле X = 1 + ((A mod 47) mod B), где В – количество элементов в соответствующей таблице, а операция mod означает остаток от деления. Например, при А = 476 и В = 5, получим \textbf{Х = 1 + ((470+6) mod 47) mod 5) = 1 + (6 mod 5) = 2}. Порядок вычислений должен быть следующим:
+	\subsection{Task variants}
+	\par The task variants are selected in accordance with the following description of the stages, given that the number A = LN*FN*SN, where LN, FN, and SN mean the number of letters in the last name, first name and second name of the student. You select the variant number in the corresponding tables by the formula X = 1 + ((A mod 47) mod B), where В is the number of elements in the corresponding table, and the mod operation means the remainder of the division. For example, if А = 476 and В = 5, we get \textbf{Х = 1 + ((470+6) mod 47) mod 5) = 1 + (6 mod 5) = 2}. The order of calculation must be as follows:
 	\begin{enumerate}
-		\item\textbf{Этап Generate.} Сформировать массив М1 размерностью N, заполнив его с помощью функции rand\textunderscore r (нельзя использовать rand) случайными вещественными числами, имеющими равномерный закон распределения в диапазоне от 1 до A (включительно). Аналогично сформировать массив М2 размерностью N/2 со случайными вещественными числами в диапазоне от А до 10*А.
-		\item\textbf{Этап Map.} В массиве М1 к каждому элементу применить операцию из таблицы:
+		\item\textbf{Generate Stage.} Form an array M1 of dimension N, filling it with the function rand\textunderscore r (you cannot use rand) with random real numbers that have a uniform law in the range from 1 to A inclusively. Similarly, form an array of M2 of dimension N / 2 with random real numbers in the range from A to 10*A.
+		\item\textbf{Map Stage.} Apply an operation from the table to each element in the M1 array:
 			\begin{center}
 				\begin{tabular}{|c|c|}
 					\hline
-					\specialcell{\textbf{Номер}\\ \textbf{варианта}} & \textbf{Операция} \\
+					\specialcell{\textbf{Number of}\\ \textbf{the variant}} & \textbf{Operation} \\
 					\hline
-					1 & \specialcell{Гиперболический синус с последующим\\ возведением в квадрат} \\
+					1 & \specialcell{Hyperbolic sine with squaring} \\
 					\hline
-					2 & \specialcell{Гиперболический косинус с последующим\\ увеличением на 1} \\
+					2 & \specialcell{Hyperbolic cosine with an\\ increase by 1} \\
 					\hline
-					3 & \specialcell{Гиперболический тангенс с последующим\\ уменьшением на 1} \\
+					3 & \specialcell{Hyperbolic tangent with the\\ decrease by 1} \\
 					\hline
-					4 & \specialcell{Гиперболический котангенс\\ корня числа} \\
+					4 & \specialcell{Hyperbolic cotangent of\\ number's root} \\
 					\hline
-					5 & \specialcell{Деление на Пи с последующим возведением\\ в третью степень} \\
+					5 & \specialcell{Division by $\pi$ with the raising\\ to the third power} \\
 					\hline
-					6 & \specialcell{Кубический корень после деления\\ на число e} \\
+					6 & \specialcell{Cubic root after division by e} \\
 					\hline
-					7 & \specialcell{Экспонента квадратного корня\\ (т.е. M1[i] = exp(sqrt(M1[i])))} \\
+					7 & \specialcell{Square root exponent\\ (i.e. M1[i] = exp(sqrt(M1[i])))} \\
 					\hline
 				\end{tabular}
 			\end{center}
-			Затем в массиве М2 каждый элемент поочерёдно сложить с предыдущим (для этого вам понадобится копия массива М2, из которого нужно будет брать операнды), а к результату сложения применить операцию из таблицы (считать, что для начального элемента массива предыдущий элемент равен нулю):
+			Then, in the M2 array, add each element in turn with the previous one (you will need a copy of the M2 array, from which you will need to take operands for this), and apply an operation from the table to the result of the addition (assume that for the initial element of the array, the previous element is zero):
 			\begin{center}
 				\begin{tabular}{|c|c|}
 					\hline
-					\specialcell{\textbf{Номер}\\ \textbf{варианта}} & \textbf{Операция} \\
+					\specialcell{\textbf{Number of}\\ \textbf{the variant}} & \textbf{Operation} \\
 					\hline
-					1 & Модуль синуса (т.е. M2[i] = |sin(M2[i] + M2[i-1])|) \\
+					1 & Sine modulus (i.e. M2[i] = |sin(M2[i] + M2[i-1])|) \\
 					\hline
-					2 & Модуль косинуса \\
+					2 & Cosine modulus \\
 					\hline
-					3 & Модуль тангенса \\
+					3 & Tangent modulus \\
 					\hline
-					4 & Модуль котангенса \\
+					4 & Cotangent modulus \\
 					\hline
-					5 & Натуральный логарифм модуля тангенса \\
+					5 & Natural logarithm of the tangent modulus \\
 					\hline
-					6 & Десятичный логарифм, возведенный в степень e \\
+					6 & Decimal logarithm raised to the e power \\
 					\hline
-					7 & Кубический корень после умножения на число Пи \\
+					7 & Cubic root after multiplying by $\pi$ \\
 					\hline
-					8 & Квадратный корень после умножения на e \\
+					8 & Square root after multiplying by e \\
 					\hline
 				\end{tabular}
 			\end{center}
-		\item\textbf{Этап Merge.} В массивах М1 и М2 ко всем элементами с одинаковыми индексами попарно применить операцию из таблицы (результат записать в М2): 
+		\item\textbf{Merge Stage.} In arrays M1 and M2 apply the operation from the table to all elements in pairs with the same indexes in (write the result in M2): 
 			\begin{center}
 				\begin{tabular}{|c|c|}
 					\hline
-					\specialcell{\textbf{Номер}\\ \textbf{варианта}} & \textbf{Операция} \\
+					\specialcell{\textbf{Number of}\\ \textbf{the variant}} & \textbf{Operation} \\
 					\hline
-					1 & Возведение в степень (т.е. M2[i] = M1[i]\verb+^+M2[i]) \\
+					1 & Raising to a power (i.e. M2[i] = M1[i]\verb+^+M2[i]) \\
 					\hline
-					2 & Деление (т.е. M2[i] = M1[i]/M2[i]) \\
+					2 & Division (i.e. M2[i] = M1[i]/M2[i]) \\
 					\hline
-					3 & Умножение \\
+					3 & Multiplication \\
 					\hline
-					4 & Выбор большего (т.е. M2[i] = max(M1[i],M2[i]))) \\
+					4 & Selecting the larger (i.e. M2[i] = max(M1[i],M2[i]))) \\
 					\hline
-					5 & Выбор меньшего \\
+					5 & Selecting the smaller \\
 					\hline
-					6 & Модуль разности \\
+					6 & Absolute difference \\
 					\hline
 				\end{tabular}
 			\end{center}
-		\item\textbf{Этап Sort.} Полученный массив необходимо отсортировать методом, указанным в таблице (для этого нельзя использовать библиотечные функции; можно взять реализацию в виде свободно доступного исходного кода):
+		\item\textbf{Sort Stage.} The resulting array must be sorted by the method specified in the table (you cannot use library functions for this; you can take the implementation as freely available source code):
 			\begin{center}
 				\begin{tabular}{|c|c|}
 					\hline
-					\specialcell{\textbf{Номер}\\ \textbf{варианта}} & \textbf{Операция} \\
+					\specialcell{\textbf{Number of}\\ \textbf{the variant}} & \textbf{Operation} \\
 					\hline
-					1 & Сортировка выбором (Selection sort). \\
+					1 & Selection sort \\
 					\hline
-					2 & Сортировка расчёской (Comb sort). \\
+					2 & Comb sort \\
 					\hline
-					3 & \specialcell{Пирамидальная сортировка (сортировка кучи,\\ Heapsort).} \\
+					3 & Heapsort \\
 					\hline
-					4 & Глупая сортировка (Stupid sort). \\
+					4 & Stupid sort \\
 					\hline
-					5 & Гномья сортировка (Gnome sort).\\
+					5 & Gnome sort\\
 					\hline
-					6 & Сортировка вставками (Insertion sort). \\
+					6 & Insertion sort \\
 					\hline
-					7 & Сортировка выбором (Selection sort). \\
+					7 & Selection sort \\
 					\hline
 				\end{tabular}
 			\end{center}
-		\item\textbf{Этап Reduce.} Рассчитать сумму синусов тех элементов массива М2, которые при делении на минимальный ненулевой элемент массива М2 дают чётное число (при определении чётности учитывать только целую часть числа). Результатом работы программы по окончании пятого этапа должно стать одно число X, которое следует использовать для верификации программы после внесения в неё изменений (например, до и после распараллеливания итоговое число X не должно измениться в пределах погрешности). Значение числа X следует привести в отчёте для различных значений N.
+		\item\textbf{Reduce Stage.} Calculate the sine sum of those array M2 elements, which give an even number when divided by the minimum non-zero element of the mass M2 (when determining parity, count only the integer part of the number). The result of the program at the end of the fifth stage must be a single number X, which should be used for verification of the program after making changes to it (for example, before and after parallelization, the final number X  should not change within the margin of error). The value of the number X should be reported for different values of N.
 		\par
 	\end{enumerate}
 }
