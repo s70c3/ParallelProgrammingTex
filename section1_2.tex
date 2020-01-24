@@ -9,7 +9,7 @@ A method of organizing calculations in which the program is a set of interacting
 			\item\textbf{Distributed computing} -a way to solve time-consuming computing problems using several computers, most often combined into a parallel computing system. Different parts of the program can run on different computers.
 		\end{enumerate}
 Usually the last two concepts are physically implemented using architectures. \textit{SMP} и \textit{MMP}. More details about these architectures can be found in the next section.
-	\par It is important to see difference between the concepts of parallel computing and parallel technologies. Let  analyze the following concepts, which, although they are parallel technologies (at the core or internuclear interaction level), however, are not parallel calculations, but often \ textbf {by mistake} are assigned to them:
+	\par It is important to see difference between the concepts of parallel compu-ting and parallel technologies. Let  analyze the following concepts, which, although they are parallel technologies (at the core or internuclear interaction level), however, are not parallel calculations, but often \ textbf {by mistake} are assigned to them:
 		\begin{itemize}
 			\item\textit{Pipeline data processing (superscalarity)} represents the simultaneous processing by the processor of several instructions, in which at one time for each of the instructions a different execution step is performed. For example, if any processor can simultaneously receive, decode, and execute an instruction, then when it receives the first instruction, it can decode the second and execute the third (figure ~\ref {pipelineExample: image}). This way of organizing calculations is not parallel computing, because the instructions are still executed sequentially, and only one core is involved.
 				\begin{figure}[H]
@@ -22,11 +22,11 @@ Usually the last two concepts are physically implemented using architectures. \t
 		\end{itemize}
 	\par Various parallelization technologies are used to organize parallel computing:
 		\begin{itemize}
-			\item\textbf{Process} - the most heavyweight mechanism used for parallelization. Each process has its own independent address space, so data synchronization between processes is long and complicated. May include several threads of execution.
+			\item\textbf{Process} - the most heavyweight mechanism used for parallelization. Each process has its own independent address space, so data synchro-nization between processes is long and complicated. May include several threads of execution.
 			\item\textbf{Thread} It runs independently of other threads, but has a common address space with other threads in the same process. At this level, data synchronization mechanisms are used (will be discussed later).
 			\item\textbf{Fiber} - lightweight thread of execution. Like threads, fiber has a common address space, however, it uses joint multitasking instead of preemptive one. The OS does not switch the context from one thread to another, instead, the main thread itself allocates time for the child fiber to work, or is blocked logically (that is, the programmer controls the fiber life cycle). Also, all fibers work on one core, unlike threads, which can work on different kernels.
 		\end{itemize}
-	\par For a better understanding of threads, we will schematically consider its life cycle. Figure ~\ref{threadLifecycle:image} shows that the flow can be in three states - readiness, expectation and fulfillment. After creating the stream, it is in a ready state. Then, the OS decides to change its state (clarifying multitasking). For fiber, the life cycle is the same, but the programmer or synchronization mechanisms control the transitions between them.
+	\par For a better understanding of threads, we will schematically consider its life cycle. Figure ~\ref{threadLifecycle:image} shows that the flow can be in three states - readiness, expectation and fulfillment. After creating the thread, it is in a ready state. Then, the OS decides to change its state (clarifying multitasking). For fiber, the life cycle is the same, but the programmer or synchronization mechanisms control the transitions between them.
 	\par Different standards of programming languages can add new states to the life cycle of threads, for example, blocking a thread, interrupting a thread, and others, but the general scheme of work remains the same.
 		\begin{figure}[H]
 			\includegraphics[width=0.9\linewidth]{threadLifecycle}

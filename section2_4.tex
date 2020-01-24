@@ -1,5 +1,5 @@
 { %section2_4
-	\subsection{Modification of Amdal's law (according to Prof. Bukhanovsky}
+	\subsection{Modification of Amdahl's law (according to Prof. Bukhanovsky)}
 	\par In real computing systems, the OS spends resources on creating and deleting new threads. The time spent on these operations is not taken into account in Amdal's law. Parallel acceleration of $ S (p) $ depends on the number of cores and the proportion of parallelized operations, but does not depend on the number of the latter. We derive a formula in which the number of operations for which it is necessary to create a stream will be considered.
 	\par Let $N$ be the number of parallelized operations, $ M $ be the number of non-parallelizable operations,  $t_c$ be the execution time of one operation, $p$ be the number of calculators (cores), $T_i$ be the program execution time using $i$ parallel threads on $i$ calculators, $\alpha$ is a certain scaling factor that encapsulates the amount of time required to create, delete a stream, and other overhead operations.
 According to the formula~\eqref{AmdalSFromP:equation}, $S(p)\;=\;\frac{T_1}{T_p}$.
