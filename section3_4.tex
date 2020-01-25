@@ -9,17 +9,17 @@
 		\caption{\textit{OpenCL Architecture}}
 		\label{OpenCLArchitecture:image}
 	\end{figure}
-	\par Physically \textit{computer unit} is \textit{work-group}, which consists of cells \textit{work-item}, which perform the calculations (Figure~\ref{OpenCLWorkGroup:image}).
+	\par Physically, a \textit{computer unit} is a \textit{work-group} that consists of \textit{work-item} cells which perform calculations (Figure~\ref{OpenCLWorkGroup:image}).
 	\begin{figure}[H]
 		\includegraphics[width=1\linewidth]{OpenCLWorkGroup}
-		\caption{\textit{OpenCL  Architecture - the structure of work-group element}}
+		\caption{\textit{OpenCL  Architecture – the structure of work-group element}}
 		\label{OpenCLWorkGroup:image}
 	\end{figure}
 	\par Commands in OpenCL form a queue. \textit {Host} routes commands to devices. These teams queue up similar teams. You can implement a queue in order and without compliance.
 ID functions \textit{work-group} and \textit{work-item} are shown on Figure~\ref{OpenCLWorkGroupItemExample:image}.
 	\begin{figure}[H]
 		\includegraphics[width=1\linewidth]{OpenCLWorkGroupItemExample}
-		\caption{\textit{OpenCL. Work with  work-group и work-item}}
+		\caption{\textit{OpenCL. Operation with work-group and work-item}}
 		\label{OpenCLWorkGroupItemExample:image}
 	\end{figure}
 	\par\textbf{Types of memory in OpenCL devices.} To interact with data, the programmer can use different levels of memory. On the Figure~\ref{OpenCLMemory:image}  we can see the following types of memory exist:
@@ -63,19 +63,19 @@ Next, we consider some of these actions in more detail.
 		\end{itemize}
 	\begin{figure}[H]
 		\includegraphics[width=1\linewidth]{OpenCLContext}
-		\caption{\textit{OpenCL Architecture - Context}}
+		\caption{\textit{OpenCL Architecture – Context}}
 		\label{OpenCLContext:image}
 	\end{figure}
 It is possible to obtain information about the platform and the computing core using special functions, then to create a context:
 		\begin{itemize}
-			\item\textit{clGetPlatformInfo()} - contains information about the platform on which the program runs
-			\item\textit{clGetDeviceDs()} - contains information about connected devices
-			\item\textit{clGetDeviceInfo()} - contains information about this device: its type, compatibility, etc.
+			\item\textit{clGetPlatformInfo()} – contains information about the platform on which the program runs
+			\item\textit{clGetDeviceDs()} – contains information about connected devices
+			\item\textit{clGetDeviceInfo()} – contains information about this device: its type, compatibility, etc.
 		\end{itemize}
 Context can be created using the function \textit{clCreateContext()}. Here is an example of its creation:
 	\begin{figure}[H]
 		\includegraphics[width=1\linewidth]{OpenCLContextExample}
-		\caption{\textit{OpenCL Architecture - Creating a context}}
+		\caption{\textit{OpenCL Architecture – Creating a context}}
 		\label{OpenCLContextExample:image}
 	\end{figure}
 In line 3 we get the platform ID, in line 7 the ID of the first GPU on this platform, in line 11 we create a context for this device. You can read more about the arguments accepted by these functions in the documentation. There is also a function \textit{clCreateContextFromType()} to create the context associated with devices of a particular type.
@@ -88,10 +88,10 @@ In line 3 we get the platform ID, in line 7 the ID of the first GPU on this plat
 			\item\texttt{\textunderscore\textunderscore private }or \texttt{private} – data in private memory.
 			\item\texttt{\textunderscore \textunderscore read\textunderscore only} and \texttt{\textunderscore \textunderscore write\textunderscore only} – access mode qualifiers.
 		\end{itemize}
-	\par We can compile kernel code using functions \\ \textit{clCreateProgramWithSource()}, \textit{clBuildProgram()} и \textit{clCreateKernel()}. An example of compiling and running a program to multiply two arrays is given in figure~\ref{OpenCLKernelExample:image}.
+	\par We can compile kernel code using functions \textit{clCreateProgramWithSource()}, \textit{clBuildProgram()} and \textit{clCreateKernel()}. An example of compiling and running a program for multiplication of two arrays is shown in Figure \ref{OpenCLKernelExample:image}.
 	\begin{figure}[H]
 		\includegraphics[width=1\linewidth]{OpenCLKernelExample}
-		\caption{\textit{OpenCL - compiling and running the kernel}}
+		\caption{\textit{OpenCL – compiling and running the kernel}}
 		\label{OpenCLKernelExample:image}
 	\end{figure}
 	\sloppy You can read more about other features of OpenCL technology %%on the resource \url{http://docplayer.ru/37490743-Programmirovanie-na-opencl.html} and %%

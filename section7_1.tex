@@ -1,25 +1,25 @@
 { %section7_1
-	\subsection{Порядок выполнения работы}
+	\subsection{Work sequence}
 	\begin{enumerate}
-		\itemВ программе, полученной в результате выполнения ЛР-3, так изменить этап Generate, чтобы генерируемый набор случайных чисел не зависел от количества потоков, выполняющих программу. Например, на каждой итерации $i$ перед вызовом rand\textunderscore r можно вызывать функцию srand(f(i)), где f – произвольно выбранная функция. Можно придумать и использовать любой другой способ.
-		\itemЗаменить вызовы функции gettimeofday на omp\textunderscore get\textunderscore wtime.
-		\itemРаспараллелить вычисления на этапе Sort, для чего выполнить сортировку в два этапа: 
+		\item1.	In the program resulting from the execution of Laboratory research \#3, change the Generate stage so that the generated set of random numbers does not depend on the number of threads running the program. For example, before calling rand\textunderscore r,  at each iteration of $i$, you can call the srand(f(i)) function, where f is an arbitrary function. You can think of and use any other method.
+		\item Replace the gettimeofday function calls to omp\textunderscore get\textunderscore wtime.
+		\item Parallelize the calculations at the Sort stage, for which you can perform sorting in two stages:
 			\begin{itemize}
-				\itemОтсортировать первую и вторую половину массива в двух независимых нитях (можно использовать OpenMP-директиву ''parallel sections''); 
-				\itemОбъединить отсортированные половины в единый массив.
+				\item Sort the first and the second half of the array in two independent threads (you can use the OpenMP Directive ''parallel sections''); 
+				\item Combine the sorted halves into a single array.
 			\end{itemize}
-		\itemНаписать функцию, которая один раз в секунду выводит в консоль сообщение о текущем проценте завершения работы программы. Указанную функцию необходимо запустить в отдельном потоке, параллельно работающем с основным вычислительным циклом.
-		\itemОбеспечить прямую совместимость (forward compatibility) написанной параллельной программы. Для этого все вызываемые функции вида «omp\textunderscore *» можно условно переопределить в препроцессорных директивах, например, так:
+		\item Write a function that outputs a message to the console about the current percentage of program shutdown once a second. Run the specified function in a separate thread running in parallel with the main computing cycle.
+		\item Ensure forward compatibility of a written parallel program. To do this, conditionally redefine all called functions of the form «omp\textunderscore *» in preprocessor directives, for example:
 			\begin{figure}[H]
 				\lstinputlisting{lab4Example.cpp}
 			\end{figure}
-		\itemПровести эксперименты, варьируя $N$ от $min(\frac{N_x}{2},\;N_1)$ до $N_2$, где значения $N_1$ и $N_2$ взять из ЛР-1, а $N_x$ – это такое значение $N$, при котором накладные расходы на распараллеливание превышают выигрыш от распараллеливания. Написать отчёт о проделанной работе. Подготовиться к устным вопросам на защите.
-		\item\textbf{Необязательное задание на «четвёрку» и «пятёрку».} Уменьшить количество итераций основного цикла с 100 до 10 и провести эксперименты, замеряя время выполнения следующими методами: 
+		\item Conduct the experiments with the resulting program, varying $N$ from $min(\frac{N_x}{2},\;N_1)$ to $N_2$, for the same values $N_1$ and $N_2$, which were used in laboratory research \#1, where $N_x$ is the number of $N$, in which the overhead of parallelization exceeds the gain from parallelization. Write a report on the work performed. Be ready to answer questions on the presentation.
+		\item\textbf{Optional task (to get good and excellent mark).} Reduce the number of iterations of the main loop from 100 to 10 and perform experiments by measuring the execution time using the following methods:
 			\begin{itemize}
-				\itemИспользование минимального из десяти полученных замеров; 
-				\itemРасчёт по десяти измерениям доверительного интервала с уровнем доверия 95\%.
+				\item Use the minimum measurement of ten received ones; 
+				\item Calculate the confidence interval with a confidence level of 95\% based on ten dimensions.
 			\end{itemize}
-			Привести графики параллельного ускорения для обоих методов в одной системе координат, при этом нижнюю и верхнюю границу доверительного интервала следует привести двумя независимыми графиками.
-		\item\textbf{Необязательное задание на «пятёрку»:} в п.3 задания на этапе Sort выполнить параллельную сортировку не двух частей массива, а $k$ частей в $k$ нитях (тредах), где $k$ – это количество процессоров (ядер) в системе, которое становится известным только на этапе выполнения программы с помощью команды \\«k = omp\textunderscore get\textunderscore num\textunderscore procs()».
+			Give graphs of parallel acceleration for both methods in the same coordinate system, furthermore, giving the lower and upper bounds of the confidence interval by two independent graphs is advisable.
+		\item\textbf{8.	Optional task (to get highest mark):} in part 3 at the Sort stage, perform parallel sorting of $k$ parts of the array (not two parts) in $k$ threads, where $k$ is the number of processors (cores) in the system, which becomes known only at the program execution stage using the command \\«k = omp\textunderscore get\textunderscore num\textunderscore procs()».
 	\end{enumerate}
 }

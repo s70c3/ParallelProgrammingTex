@@ -12,7 +12,7 @@
 		\caption{\textit{Signatures of CAS operations in the C++ library}}
 		\label{CAS:image}
 	\end{figure}
-	\par An alternative to CAS operations is a pair of LL/SC operations in ARM processors. The load-link operation loads a value from memory, and store-conditional sets a new value, but only if the memory area has not changed. To implement LL/SC operations, we had to change the cache structure so that a LINK flag is added to each cache line. The flag is set during LL operation and is reset during SC or cache line preemption. LL/SC operations are not subject to the ABA problem, however, false sharing may occur due to hardware implementation. In modern processors, the cache line length is 64 - 128 bytes, therefore, several variables can be in the same cache line. When working with multiple variables on the same line, LL/SC operations will have a common LINK flag, which can lead to incorrect operation. In order to avoid this problem, one should place one variable in a line.
+	\par An alternative to CAS operations is a pair of LL/SC operations in ARM processors. The load-link operation loads a value from memory, and store-conditional sets a new value, but only if the memory area has not changed. To implement LL/SC operations, we had to change the cache structure so that a LINK flag is added to each cache line. The flag is set during LL operation and is reset during SC or cache line preemption. LL/SC operations are not subject to the ABA problem, however, false sharing may occur due to hardware implementation. In modern processors, the cache line length is 64 – 128 bytes, therefore, several variables can be in the same cache line. When working with multiple variables on the same line, LL/SC operations will have a common LINK flag, which can lead to incorrect operation. In order to avoid this problem, one should place one variable in a line.
 	\begin{figure}[H]
 		\lstinputlisting{falseSharingLLSCExample.cpp}
 	\end{figure}
@@ -20,7 +20,7 @@
 	\begin{figure}[H]
 		\lstinputlisting{LLSCthroughCAS.cpp}
 	\end{figure}
-	\par It is also important to understand that lock-free algorithms are sensitive to reordering machine instructions in their code. To avoid this, memory barriers are used. The memory barrier X\_Y ensures that all X-operations before the barrier are executed before the Y-operations after the barrier begin to be executed. In theory, there are 4 types of barriers - LoadLoad, LoadStore, StoreLoad, StoreStore, but not all of them are implemented in all architectures. There are 4 processor memory models:
+	\par It is also important to understand that lock-free algorithms are sensitive to reordering machine instructions in their code. To avoid this, memory barriers are used. The memory barrier X\_Y ensures that all X-operations before the barrier are executed before the Y-operations after the barrier begin to be executed. In theory, there are 4 types of barriers: LoadLoad, LoadStore, StoreLoad, StoreStore, but not all of them are implemented in all architectures. There are 4 processor memory models:
 	\begin{itemize}  
 		\item\textbf{Relaxed model} -- reordering of any memory access instructions is possible, even depending on the data (DEC Alpha).
 		\item\textbf{Weak model} -- reordering of any read and write instructions is possible, except for those that have data dependencies(ARM, PowerPC, Intel Itanium).
@@ -28,13 +28,13 @@
 		\item\textbf{Sequentual consistency model} -- any reordering is prohibited.
 	\end{itemize}
 	\par There are various lock-free data structures: queues (with strict and weakened order), stack, linked lists, hash tables. In C++, data structure data can be used by connecting various libraries. For example, Boost contains the implementation of the queue and stack, and Libcds contains all of the above.
-	\par An example of a lock-free data structure is the Michael-Scott queue. This queue is implemented on the basis of a singly linked list and two pointers, one of which points to the head of the list (dummy node), and the other to the tail (figure ~\ref{lockFreeQueue:image}).
+	\par An example of a lock-free data structure is the Michael-Scott queue. This queue is implemented on the basis of a singly linked list and two pointers, one of which points to the head of the list (dummy node), and the other to the tail (Figure ~\ref{lockFreeQueue:image}).
 	\begin{figure}[H]
 		\includegraphics[width=1\linewidth]{lockFreeQueue}
 		\caption{\textit{Michael-Scott queue}}
 		\label{lockFreeQueue:image}
 	\end{figure}
-	\par Consider the simplified queue code from the libcds library. Below is the enqueue function - adding to the queue. First, the passed value is put in node. Then we try to put it in the tail of the line. After receiving the current tail, the pointer advances until it reaches the actual tail. Then the value is put at the end of the queue and the value of the inserted element is assigned to the tail.
+	\par Consider the simplified queue code from the libcds library. Below is the enqueue function – adding to the queue. First, the passed value is put in node. Then we try to put it in the tail of the line. After receiving the current tail, the pointer advances until it reaches the actual tail. Then the value is put at the end of the queue and the value of the inserted element is assigned to the tail.
 	\begin{figure}[H]
 		\lstinputlisting{lockFreeQueueEnqueue.cpp}
 	\end{figure}

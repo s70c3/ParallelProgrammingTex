@@ -2,8 +2,8 @@
 	\subsection{OpenMP Technology}
 	\label{OpenMP:section}
 	\par\textbf{Brief description of the technology.} The first version of the OpenMP standard appeared in 1997 with the support of the largest IT companies in the world (Intel, IBM, AMD, HP, Nvidia, etc.). The aim of the new standard was to offer a cross-platform parallelization tool that would be higher-level than the flow control APIs offered by the operating system. OpenMP is currently standardized for three programming languages: C, C ++ and Fortran.
-	\par\textbf{Compiler support} The vast majority of existing modern C / C ++ compilers support OpenMP version 2.0 (for example, both gcc and Visual Studio). However, only a few compilers support the newer version of OpenMP 4.0, therefore, when setting forth the material, the OpenMP 2.0 technology will be used as the "common denominator"'.
-	\par OpenMP defines a set of directives to the preprocessor, which instructs the compiler to replace the source code that follows them with a parallel version using tools available to the compiler, for example, POSIX Threads on Linux or Windows Threads on Microsoft operating systems. For correct translation of directives, you must specify a special key during compilation, the value of which depends on the compiler (examples are given in the table~\ref{compilerOpenMP:table}).
+	\par\textbf{Compiler support} The vast majority of existing modern C / C ++ compilers support OpenMP version 2.0 (for example, both gcc and Visual Studio). However, only a few compilers support the newer version of OpenMP 4.0, therefore, when setting forth the material, the OpenMP 2.0 technology will be used as the "common denominator."\
+	\par OpenMP defines a set of directives to the preprocessor, which instructs the compiler to replace the source code that follows them with a parallel version using tools available to the compiler, for example, POSIX Threads on Linux or Windows Threads on Microsoft operating systems. For correct translation of directives, you must specify a special key during compilation, the value of which depends on the compiler (examples are given in the Table~\ref{compilerOpenMP:table}).
 	\begin{table}[H]
 		\caption{Compiler keys to run OpenMP}
 		\label{compilerOpenMP:table}
@@ -45,7 +45,7 @@
 	\par\textit{Support by the largest IT giants.} Already during the development of OpenMP, it was supported by the largest players in the IT world. This ensured not only the high quality of standard development, but also the availability of off-the-shelf implementations of the standard in popular compilers. Despite the past twenty years, OpenMP has not lost its adherents and support for the latest versions with a fairly low delay appears in compilers. For example, with the current version of the OpenMP 4.5 standard, the most popular compilers already support OpenMP 4.0. The only exception is Microsoft. Their compiler for several versions invariably only supports OpenMP 2.0.
 	\par\textit{Auto scaling.}  
 	Low-level parallelization technologies (POSIX Threads, OpenCL) offer the programmer to manually control the number of threads created when performing parallel work. This provides the ability to flexibly manage and configure the process of creating threads depending on the number of processors (cores) available to the system, but it requires a large amount of non-automated work from the programmer. In OpenMP, scaling is controlled automatically, i.e. OpenMP itself asks the number of available processors from the operating system and selects the number of threads to create. But if necessary, OpenMP leaves the ability to set the required number of threads manually.
-	\par\textbf{Examples of OpenMP programs.} Consider the simplest examples of running parallel programs below, starting with the traditional programming example "Hello, World'':
+	\par\textbf{Examples of OpenMP programs.} Consider the simplest examples of running parallel programs below, starting with the traditional programming example ''Hello, World'':
 	\begin{figure}[H]
 		\lstinputlisting{OpenMPExample1.cpp}
 	\end{figure}
@@ -88,7 +88,7 @@
 		\lstinputlisting{OpenMPExample9.cpp}
 	\end{figure}
 	\par We see that now the variable \textit{j} is explicitly defined as local (private). If we use the tmp array, the solution will be different - it can fit inside the parallel section (i.e. each stream will have its own instance of the tmp array independent of the others). Why can'twe just specify the tmp variable in the list of the private command, as was done for \textit{j}? The answer is related to the specifics of the C language: the \textit{tmp} variable is a pointer that does not change during the operation of the loop, but the contents of the memory pointed to by \textit{tmp }change. This means that specifying \textit{tmp} as a private variable would not solve the problem with data racing, because all streams would receive the same tmp address and interfere with each other, writing new values to this address.
-	\par Let's consider one more error typical for parallel computing. The follo-wing program calculates the sum of numbers from 1 to 100:
+	\par Let's consider one more error typical for parallel computing. The following program calculates the sum of numbers from 1 to 100:
 	\begin{figure}[H]
 		\lstinputlisting{OpenMPExample10.cpp}
 	\end{figure}
@@ -96,14 +96,14 @@
 	\begin{figure}[H]
 		\lstinputlisting{OpenMPExample11.cpp}
 	\end{figure}
-	We see the beginning of the parallel area on line 2 -  at this point OpenMP creates several threads. In line 6, new threads are not created (because the parallel keyword is missing), but the threads entering the loop divide iterations among themselves, and do not complete each iteration as a whole. In line 8, the  thread calculating its partial amount tries to add this amount to the total amount. This has to be done using the atomic directive, which ensures that threads will not interfere with each other when overwriting sum.
+	We see the beginning of the parallel area on line 2 – at this point OpenMP creates several threads. In line 6, new threads are not created (because the parallel keyword is missing), but the threads entering the loop divide iterations among themselves, and do not complete each iteration as a whole. In line 8, the  thread calculating its partial amount tries to add this amount to the total amount. This has to be done using the atomic directive, which ensures that threads will not interfere with each other when overwriting sum.
 	
 	\par Another difficult point is the reinitialization of the variable \textit{sum\textunderscore private} on line 4: this is necessary because OpenMP does not initialize local variables, even if there are global variables with identical names. This solution is designed to reduce the overhead of copying variables.
 	\par The described approach is working, but it is almost never used in practice, because the OpenMP standard for a whole class of similar tasks offers a higher-level and simpler solution. It consists in using the \textit{reduction} command:
 	\begin{figure}[H]
 		\lstinputlisting{OpenMPExample12.cpp}
 	\end{figure}
-	\par The \textit{reduction} command marks the listed variables as local, and at the end of the parallel region, all local variables are combined (aggregated) into one global variable with the same name using the specified operation. In our case, the operation is the amount. But OpenMP allows the use of  ''*'', ''-'', ''/'' instead of the sign '' +''. It is important that reduction, among other things, does not initialize the variables with the values of the original global variables, but with the most appropriate values of the aggregation logic: for example, when summing, the variable is initialized to zero, and when multiplying, it is initialized to one.
+	\par The \textit{reduction} command marks the listed variables as local, and at the end of the parallel region, all local variables are combined (aggregated) into one global variable with the same name using the specified operation. In our case, the operation is the amount. But OpenMP allows the use of  ''*'', ''-'', ''/'' instead of the sign ''+''. It is important that reduction, among other things, does not initialize the variables with the values of the original global variables, but with the most appropriate values of the aggregation logic: for example, when summing, the variable is initialized to zero, and when multiplying, it is initialized to one.
 	\par When parallelizing a cycle, iterations may turn out to be unequal in the amount of work performed among themselves. This can lead to the fact that one thread will cope with the selected part of iterations much faster than the second thread and will be idle. To solve this problem, OpenMP offers four different ways to distribute iterations over threads. 
 	\begin{itemize}
 		\item\textit{Default method:} iterations are divided by the number of parts equal to the number of threads; each thread then performs its part and cannot take someone else's work.
@@ -116,7 +116,7 @@
 	\begin{figure}[H]
 		\lstinputlisting{OpenMPExample13.cpp}
 	\end{figure}
-	\par With three cores, OpenMP will create three threads. The first thread will get iterations $i=1,\;4,\;7,\;…,\;97$ the second – iterations $i=2,\;5,\;8,\;…,\;98$, the third -  $i=3,\;6,\;9,\;…,\;99$. Note that choosing a small value for the parameter chunk \textunderscore size = 1 in this case does not have any negative effects. However, if i were used as an index when accessing the array, the proposed partitioning would lead to memory access not sequentially by sequential addresses, but sparse with step 3, which would degrade cache hit performance when using caching.
+	\par With three cores, OpenMP will create three threads. The first thread will get iterations $i=1,\;4,\;7,\;…,\;97$ the second – iterations $i=2,\;5,\;8,\;…,\;98$, the third -  $i=3,\;6,\;9,\;…,\;99$. Note that choosing a small value for the parameter chunk\textunderscore size = 1 in this case does not have any negative effects. However, if i were used as an index when accessing the array, the proposed partitioning would lead to memory access not sequentially by sequential addresses, but sparse with step 3, which would degrade cache hit performance when using caching.
 	\par Lets consider another example: 
 	\begin{figure}[H]
 		\lstinputlisting{OpenMPExample14.cpp}

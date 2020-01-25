@@ -1,18 +1,17 @@
 { %section6_1
-	\subsection{Порядок выполнения работы}
+	\subsection{Work sequence}
 	\begin{enumerate}
-		\itemДобавить во все for-циклы в программе из ЛР №1 следующую директиву OpenMP: \\	
-''\#pragma omp parallel for default(none) private(...) shared(...)''. Наличие всех перечисленных параметров в указанной директиве является обязательным.
-		\itemПроверить все for-циклы на внутренние зависимости по данным между итерациями. Если зависимости обнаружились, использовать для защиты критических секций директиву ''\#pragma omp critical'' или ''\#pragma omp atomic'' (если операция атомарна), или параметр reduction (предпочтительнее) или вообще отказаться от распараллеливания цикла (свой выбор необходимо обосновать).
-		\itemУбедиться, что получившаяся программа обладает свойством прямой совместимости с компиляторами, не поддерживающими \\OpenMP (для проверки этого можно скомпилировать программу без опции ''–fopenmp'', в результате не должно быть сообщений об ошибках, а программа должна корректно работать).
-		\itemПровести эксперименты, замеряя параллельное ускорение. Привести сравнение графиков параллельного ускорения с ЛР №1 и ЛР №2.  
-		\item Провести эксперименты, добавив параметр ''schedule'' и варьируя в экспериментах тип расписания. Исследование нужно провести для всех возможных расписаний: static, dynamic, guided. Способ варьирования параметра chunk\textunderscore size выбрать самостоятельно (но должно быть не менее 5 точек варьирования). Привести сравнение параллельного ускорения при различных расписаниях с результатами п.4.
-		\itemВыбрать из рассмотренных в п.4 и п.5 наилучший вариант при различных $N$. Сформулировать условия, при которых наилучшие результаты получились бы при использовании других типов расписания.
-		\itemНайти вычислительную сложность алгоритма до и после распараллеливания, сравнить полученные результаты.
-		\itemНаписать отчёт о проделанной работе.
-		\itemПодготовиться к устным вопросам на защите.
-		\item\textbf{Необязательное задание №1} (для получения оценки «четыре» и «пять»). Для иллюстрации того, что программа действительно распараллелилась, привести график загрузки процессора (ядер) от времени при выполнении программы при $N\;=\;N_1$ для лучшего варианта распараллеливания. Для получения графика можно как написать скрипт 
-так и просто сделать скриншот диспетчера задач, указав на скриншоте моменты начала и окончания эксперимента (в отчёте нужно привести текст скрипта или название использованного диспетчера). Недостаточно привести однократное  моментальное измерение загрузки утилитой htop, т.к. требуется привести график изменения загрузки за всё время выполнения программы.
-		\item\textbf{Необязательное задание №2} (для получения оценки «пять»). Построить график параллельного ускорения для точек $N\;<\;N_1$ и найти значения $N$, при которых накладные расходы на распараллеливание превышают выигрыш от распараллеливания (независимо для различных типов расписания).
+		\item Add the following OpenMP Directive to all for-loops in the program from Laboratory research \#1: \\	
+''\#pragma omp parallel for default(none) private(...) shared(...)''. The presence of all the listed parameters in the specified directive is mandatory.
+		\item Check all for-loops for internal dependencies on data between iterations. If dependencies are found, use the directive ''\#pragma omp critical'' or ''\#pragma omp atomic'' (if the operation is atomic), or the reduction parameter (preferably), or refuse to parallelize the loop at all (your choice must be justified) to protect critical sections.
+		\item Make sure that the resulting program has the property of direct compatibility with compilers that do not support OpenMP (you can compile the program without the option ''–fopenmp'' to check this. As a result, there should be no error messages, and the program should work correctly).
+		\item Conduct experiments by measuring the parallel acceleration. Compare parallel acceleration graphs with Laboratory research \#1 and \#2.
+		\item Conduct the experiments by adding the ''schedule'' parameter and varying the schedule type in the experiments. You need to do the research for all possible schedules: static, dynamic, guided. You can choose the method of varying the chunk\textunderscore size parameter yourself (but there must be at least 5 points of variation). Compare the parallel acceleration for different schedules with the results of article 4.
+		\item Choose the best option for different $N$ from those discussed in article 4 and 5. Formulate the conditions under which best results would be obtained by using other types of writing.
+		\item Find the computational complexity of the algorithm before and after parallelization and compare the results obtained.
+		\item Write a report on the work performed.
+		\item Be ready to answer questions on the presentation.
+		\item\textbf{Optional task \#1} (to get good and excellent mark). Give a graph of the CPU load (cores) from the time when the program is running at $N\;=\;N_1$ for the best parallelization option to illustrate that the program is really parallelized. You can write a script or just make a screenshot of the Task Manager, specifying the start and the end points of the experiment on the screenshot to get a graph (you need to give the text of the script or the name of the used Manager in the report). You need to provide a graph of the load changes over the entire time of the program execution, because providing a single instant load measurement by the htop utility is not enough.
+		\item\textbf{Optional task \#2} (to get excellent mark). Build a parallel acceleration graph for points $N\;<\;N_1$ and find the values of $N$at which the overhead of parallelization exceeds the gain from parallelization (independently for different types of schedules).
 	\end{enumerate}
 }

@@ -27,11 +27,11 @@ where the first term gives the runtime of the parallelized ideally parallelized 
 		\caption{\textit{A graph of the parallel acceleration on the number of cores in Amdahl}}
 		\label{GraphAmdalSFromP:image}
 	\end{figure}
-	\par Note that the expression for calculating parallel efficiency using the Amdahl method can be obtained by combining the Formulas~\eqref{parallelEffect:equation} and~\eqref{AmdalLaw:equation}, exactly:
+	\par Note that the expression for calculating parallel efficiency using the Amdahl method can be obtained by combining the formulas~\eqref{parallelEffect:equation} and~\eqref{AmdalLaw:equation} in that way:
 	\begin{equation}
-		E_A(p)\;=\;\left(k\;+\;p\;-\;p\;\cdot\;k\right)^{-1}
+		E_A(p)\;=\;\left(k\;+\;p\;-\;p\;\cdot\;k\right)^{-1}.
 	\end{equation}
-	\par An important assumption of Amdahl's law is the idealization of the physical meaning of the quantity $k$. It consists in the assumption that a perfectly parallelized code will give a linear increase in speed when $ p $ changes from $0$ to $+\infty$ . When solving real problems, it is necessary to limit this interval from above to some finite positive value $p_{max}$ or to exclude from this interval all values that are not multiples of a certain quantity that usually sets the dimension of the problem.
+	\par An important assumption of Amdahl's law is the idealization of the physical meaning of the quantity $k$. It consists in the assumption that a perfectly parallelized code will give a linear increase in speed when $ p $ changes from $0$ to $+\infty$. When solving real problems, it is necessary to limit this interval from above to some finite positive value $p_{max}$ or to exclude from this interval all values that are not multiples of a certain quantity that usually sets the dimension of the problem.
 	\par For example, the code of a program that performs convolutional coding independently for five equal-sized files can give linear acceleration when $p$ changes from $1$ to $5$, but even with $p = 6$ it will most likely show a zero increase in the speed of the task (in comparison with solution for $p = 5$). This is because convolutional coding, also known as convolutional coding, is fundamentally un-parallelizable when coding the selected data block.
 	\par
 }
