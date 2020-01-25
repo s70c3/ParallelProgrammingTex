@@ -3,26 +3,26 @@
 	\label{OpenCL:section}
 	\par\textbf{Brief description of the technology.} OpenCL is a framework for writing computer programs related to parallel computing on various graphic and central processors, as well as FPGA. OpenCL includes a programming language that is based on the C99 language standard, and an application programming interface. OpenCL provides concurrency at the instruction level and data level and is an implementation of the GPGPU technique. OpenCL is a fully open standard, its use is not subject to licensing fees. Using this technology, heterogeneous parallel computing can be performed (distribute tasks between different devices).
 	\par As we already know, it is possible to parallelize a program by tasks between a small number of productive cores (processors of modern PCs) or by data between thousands of simple slow cores (computing cores of modern GPUs). It is for problems solved using data parallelization that OpenCL is used.
-	\par\textbf{OpenCL Technology Architecture} OpenCL divides two types of devices: \textit{host}, which controls the common logic, and \ textit{device}, which perform the calculations. The \textit{host} is usually the central processor, while the \textit{device} is the GPU and other devices. \textit{Device} divided into compute modules \textit{computer units}, which in turn consist of processing elements (\textit{processing elements}) (figure ~\ref{OpenCLArchitecture:image}). Direct calculations are performed in the processing elements of the device.
+	\par\textbf{OpenCL Technology Architecture} OpenCL divides two types of devices: \textit{host}, which controls the common logic, and \ textit{device}, which perform the calculations. The \textit{host} is usually the central processor, while the \textit{device} is the GPU and other devices. \textit{Device} divided into compute modules \textit{computer units}, which in turn consist of processing elements \textit{(processing elements)} (Figure~\ref{OpenCLArchitecture:image}). Direct calculations are performed in the processing elements of the device.
 	\begin{figure}[H]
 		\includegraphics[width=1\linewidth]{OpenCLArchitecture}
 		\caption{\textit{OpenCL Architecture}}
 		\label{OpenCLArchitecture:image}
 	\end{figure}
-	\par Physically \textit{computer unit} is \textit{work-group}, which consists of cells \textit{work-item}, which perform the calculations (figure~\ref{OpenCLWorkGroup:image}).
+	\par Physically \textit{computer unit} is \textit{work-group}, which consists of cells \textit{work-item}, which perform the calculations (Figure~\ref{OpenCLWorkGroup:image}).
 	\begin{figure}[H]
 		\includegraphics[width=1\linewidth]{OpenCLWorkGroup}
 		\caption{\textit{OpenCL  Architecture - the structure of work-group element}}
 		\label{OpenCLWorkGroup:image}
 	\end{figure}
 	\par Commands in OpenCL form a queue. \textit {Host} routes commands to devices. These teams queue up similar teams. You can implement a queue in order and without compliance.
-ID functions \textit{work-group} and \textit{work-item} are shown on  figure ~\ref{OpenCLWorkGroupItemExample:image}.
+ID functions \textit{work-group} and \textit{work-item} are shown on Figure~\ref{OpenCLWorkGroupItemExample:image}.
 	\begin{figure}[H]
 		\includegraphics[width=1\linewidth]{OpenCLWorkGroupItemExample}
 		\caption{\textit{OpenCL. Work with  work-group и work-item}}
 		\label{OpenCLWorkGroupItemExample:image}
 	\end{figure}
-	\par\textbf{Types of memory in OpenCL devices.} To interact with data, the programmer can use different levels of memory. On the figure ~\ref{OpenCLMemory:image}  we can see the following types of memory exist:
+	\par\textbf{Types of memory in OpenCL devices.} To interact with data, the programmer can use different levels of memory. On the Figure~\ref{OpenCLMemory:image}  we can see the following types of memory exist:
 	\begin{itemize}
 		\item Private memory. The fastest of all kinds. Exclusive for every item of work.
 		\item Local memory. It can be used by the compiler with a large number of local variables in any function. In terms of speed characteristics, local memory is much slower than register memory. Access from work items in one work-group.
@@ -53,7 +53,7 @@ ID functions \textit{work-group} and \textit{work-item} are shown on  figure ~\r
 			\item\textbf{Profiling:} clGetEventProfilingInfo
 		\end{enumerate}
 Next, we consider some of these actions in more detail.
-	\par\textbf{Platform, device, and context selection.}  \textit{(Context)} is required to manage OpenCL objects and resources. All OpenCL resources are context bound. The following data is associated with the context (figure ~\ref{OpenCLContext:image}):
+	\par\textbf{Platform, device, and context selection.}  \textit{(Context)} is required to manage OpenCL objects and resources. All OpenCL resources are context bound. The following data is associated with the context (Figure~\ref{OpenCLContext:image}):
 		\begin{itemize}
 		\item devices
 		\item object objects
@@ -79,14 +79,14 @@ Context can be created using the function \textit{clCreateContext()}. Here is an
 		\label{OpenCLContextExample:image}
 	\end{figure}
 In line 3 we get the platform ID, in line 7 the ID of the first GPU on this platform, in line 11 we create a context for this device. You can read more about the arguments accepted by these functions in the documentation. There is also a function \textit{clCreateContextFromType()} to create the context associated with devices of a particular type.
-	\par\textbf{Kernel.} A kernel is a function that is part of a program and runs in parallel on a device. The kernel is an analog of a stream function. The part running on the device consists of a set of cores declared with a qualifier \textbf{\textunderscore \textunderscore kernel}. Kernel compilation can be performed at runtime using API functions. Work within the same work group is performed simultaneously by all work items.
+	\par\textbf{Kernel.} A kernel is a function that is part of a program and runs in parallel on a device. The kernel is an analog of a stream function. The part running on the device consists of a set of cores declared with a \texttt{qualifier\textbf{\textunderscore \textunderscore kernel}}. Kernel compilation can be performed at runtime using API functions. Work within the same work group is performed simultaneously by all work items.
 	\par When writing the kernel, you can use the following qualifiers for variables:
 		\begin{itemize}
-			\item\textunderscore \textunderscore global or global – data in global memory.
-			\item\textunderscore \textunderscore constant or constant – data in constant memory.
-			\item\textunderscore \textunderscore local or local – data in local memory.
-			\item\textunderscore \textunderscore private or private – data in private memory.
-			\item\textunderscore \textunderscore read\textunderscore only и \textunderscore \textunderscore write\textunderscore only – access mode qualifiers.
+			\item\texttt{\textunderscore \textunderscore global} or \texttt{global} – data in global memory.
+			\item\texttt{\textunderscore \textunderscore constant} or \texttt{constant} – data in constant memory.
+			\item\texttt{\textunderscore \textunderscore local} or \texttt{local} – data in local memory.
+			\item\texttt{\textunderscore\textunderscore private }or \texttt{private} – data in private memory.
+			\item\texttt{\textunderscore \textunderscore read\textunderscore only} and \texttt{\textunderscore \textunderscore write\textunderscore only} – access mode qualifiers.
 		\end{itemize}
 	\par We can compile kernel code using functions \\ \textit{clCreateProgramWithSource()}, \textit{clBuildProgram()} и \textit{clCreateKernel()}. An example of compiling and running a program to multiply two arrays is given in figure~\ref{OpenCLKernelExample:image}.
 	\begin{figure}[H]

@@ -13,7 +13,7 @@
 		\item jemalloc: \url{http://jemalloc.net/}
 		\item mimalloc: \url{https://github.com/microsoft/mimalloc}
 	\end{itemize}
-	\par The listed MUPs are designed in such a way that they can 'silently' replace the standard MUP libraries of the C language C for the parallel program. This means that the choice of a particular MUP does not affect the source code of the program, so the general practice of using third-party MUPs is as follows: parallel program it is initially created using the libc MUP, then the profiling of the running program is performed, then when a bottleneck is detected in the malloc / free functions, a decision is made to replace the standard MUP with one of the listed.
+	\par The listed MUPs are designed in such a way that they can 'silently' replace the standard MUP libraries of the C language C for the parallel program. This means that the choice of a particular MUP does not affect the source code of the program, so the general practice of using third-party MUPs is as follows: parallel program it is initially created using the libc MUP, then the profiling of the running program is performed, then when a bottleneck is detected in the malloc/free functions, a decision is made to replace the standard MUP with one of the listed.
 	\par
 	\par
 }

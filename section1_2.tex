@@ -11,7 +11,7 @@ A method of organizing calculations in which the program is a set of interacting
 Usually the last two concepts are physically implemented using architectures. \textit{SMP} и \textit{MMP}. More details about these architectures can be found in the next section.
 	\par It is important to see difference between the concepts of parallel compu-ting and parallel technologies. Let  analyze the following concepts, which, although they are parallel technologies (at the core or internuclear interaction level), however, are not parallel calculations, but often \ textbf {by mistake} are assigned to them:
 		\begin{itemize}
-			\item\textit{Pipeline data processing (superscalarity)} represents the simultaneous processing by the processor of several instructions, in which at one time for each of the instructions a different execution step is performed. For example, if any processor can simultaneously receive, decode, and execute an instruction, then when it receives the first instruction, it can decode the second and execute the third (figure ~\ref {pipelineExample: image}). This way of organizing calculations is not parallel computing, because the instructions are still executed sequentially, and only one core is involved.
+			\item\textit{Pipeline data processing (superscalarity)} represents the simultaneous processing by the processor of several instructions, in which at one time for each of the instructions a different execution step is performed. For example, if any processor can simultaneously receive, decode, and execute an instruction, then when it receives the first instruction, it can decode the second and execute the third (Figure~\ref {pipelineExample:image}). This way of organizing calculations is not parallel computing, because the instructions are still executed sequentially, and only one core is involved.
 				\begin{figure}[H]
 					\includegraphics[width=1\linewidth]{pipelineExample}
 					\caption{\textit{Instruction pipelining}}
@@ -33,7 +33,7 @@ Usually the last two concepts are physically implemented using architectures. \t
 			\caption{\textit{Thread lifecycle}}
 			\label{threadLifecycle:image}
 		\end{figure}
-	\par Among programmers there are concepts of \textbf{thread-safe} и \textbf{reentrant} functions, however, they may have different meanings in different communities. Definitions are written from various sources in table ~\ref{threadSafeReentrant:table}.
+	\par Among programmers there are concepts of \textbf{thread-safe} и \textbf{reentrant} functions, however, they may have different meanings in different communities. Definitions are written from various sources in Table~\ref{threadSafeReentrant:table}.
 	\begin{table}[H]
 		\caption{Definitions of thread-safe and reentrant functions}
 		\label{threadSafeReentrant:table}
@@ -57,7 +57,7 @@ Usually the last two concepts are physically implemented using architectures. \t
 	\begin{figure}[H]
 		\lstinputlisting{swapExample3.cpp}
 	\end{figure}
-	\par The new function is reentrant, but again non thread-safe. Finally, we give an example of a standard and proper implementation of swap(), which is thread safe and reentrant:
+	\par The new function is reentrant, but again non thread-safe. Finally, we give an example of a standard and proper implementation of \texttt{swap()}, which is thread safe and reentrant:
 	\begin{figure}[H]
 		\lstinputlisting{swapExample4.cpp}
 	\end{figure}
