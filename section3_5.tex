@@ -37,7 +37,7 @@
 	\begin{figure}[H]
 		\lstinputlisting{deadlockExample.cpp}
 	\end{figure}
-	\par The experiments with the above program were carried out on a computer with an Intel Core i5 processor (4 logical processors) with 8 gigabytes of RAM in the Debian Wheezy operating system. The program was run 10,000 times, and 10,000 values of the variable s were obtained at the time the deadlock occurred. The results of these measurements are shown in the figure.~\ref{GraphDeadlock:image} in the form of a histogram of the distribution density s.
+	\par The experiments with the above program were carried out on a computer with an Intel Core i5 processor (4 logical processors) with 8 gigabytes of RAM in the Debian Wheezy operating system. The program was run 10,000 times, and 10,000 values of the variable s were obtained at the time the deadlock occurred. The results of these measurements are shown in the Figure~\ref{GraphDeadlock:image} in the form of a histogram of the distribution density s.
 	\par In the above figure, the right borders of the columns are marked on the abscissa. The last column contains all hits from 3000 to infinity. The average value of s in the described case turned out to be 2445, i.e. two threads manage to capture and release the locks in an obviously wrong dangerous order without a deadlock approximately 1222.5 times.
 	\begin{figure}[H]
 		\includegraphics[width=1\linewidth]{GraphDeadlock}

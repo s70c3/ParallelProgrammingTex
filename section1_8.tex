@@ -6,17 +6,17 @@
 	\par An object is wait-free if each thread completes an operation on an object in a finite number of steps.
 	\par The question may arise: why are non-blocking data structures needed, if synchronization primitives can be used to access the usual data structure. Lock-free structures have several advantages over blocking data structures. So, in terms of bandwidth, they exceed blocking ones by 1.5–3 times, however, both blocking and non-blocking queues have poor scalability with respect to the number of threads. In terms of the delay of elements in the queue, non-blocking queues also have better characteristics, but their advantage is quite small. Also, the use of synchronization primitives can lead to deadlock, and errors can also occur associated with forgetting to capture or release primitives.
 	\par Lock-free data structures do not contain locks and remain in a consistent state regardless of the number of threads accessing it at the same time. Such data structures can be organized using RMW - read, modify and write operations that occur atomically.
-	\par An example of RMW operation is CAS. In the C ++ library, there are two options for implementing this operation: weak and strong (figure ~ \ref{CAS: image}). Weak version may return false in case when the read value was equal to the expected one. Strong always returns the correct value.
+	\par An example of RMW operation is CAS. In the C++ library, there are two options for implementing this operation: weak and strong (figure ~\ref{CAS:image}). Weak version may return false in case when the read value was equal to the expected one. Strong always returns the correct value.
 	\begin{figure}[H]
 		\includegraphics[width=1\linewidth]{CAS}
-		\caption{\textit{Signatures of CAS operations in the C ++ library}}
+		\caption{\textit{Signatures of CAS operations in the C++ library}}
 		\label{CAS:image}
 	\end{figure}
 	\par An alternative to CAS operations is a pair of LL/SC operations in ARM processors. The load-link operation loads a value from memory, and store-conditional sets a new value, but only if the memory area has not changed. To implement LL/SC operations, we had to change the cache structure so that a LINK flag is added to each cache line. The flag is set during LL operation and is reset during SC or cache line preemption. LL/SC operations are not subject to the ABA problem, however, false sharing may occur due to hardware implementation. In modern processors, the cache line length is 64 - 128 bytes, therefore, several variables can be in the same cache line. When working with multiple variables on the same line, LL/SC operations will have a common LINK flag, which can lead to incorrect operation. In order to avoid this problem, one should place one variable in a line.
 	\begin{figure}[H]
 		\lstinputlisting{falseSharingLLSCExample.cpp}
 	\end{figure}
-	\par CAS operation can be quite easily implemented using LL / SC operations:
+	\par CAS operation can be quite easily implemented using LL/SC operations:
 	\begin{figure}[H]
 		\lstinputlisting{LLSCthroughCAS.cpp}
 	\end{figure}
@@ -27,8 +27,8 @@
 		\item\textbf{Strong model } -- only reordering read to write is possible (x86).
 		\item\textbf{Sequentual consistency model} -- any reordering is prohibited.
 	\end{itemize}
-	\par There are various lock-free data structures: queues (with strict and weakened order), stack, linked lists, hash tables. In C ++, data structure data can be used by connecting various libraries. For example, Boost contains the implementation of the queue and stack, and Libcds contains all of the above.
-	\par An example of a lock-free data structure is the Michael-Scott queue. This queue is implemented on the basis of a singly linked list and two pointers, one of which points to the head of the list (dummy node), and the other to the tail (рисунок~\ref{lockFreeQueue:image}).
+	\par There are various lock-free data structures: queues (with strict and weakened order), stack, linked lists, hash tables. In C++, data structure data can be used by connecting various libraries. For example, Boost contains the implementation of the queue and stack, and Libcds contains all of the above.
+	\par An example of a lock-free data structure is the Michael-Scott queue. This queue is implemented on the basis of a singly linked list and two pointers, one of which points to the head of the list (dummy node), and the other to the tail (figure ~\ref{lockFreeQueue:image}).
 	\begin{figure}[H]
 		\includegraphics[width=1\linewidth]{lockFreeQueue}
 		\caption{\textit{Michael-Scott queue}}

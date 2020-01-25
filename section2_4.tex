@@ -9,7 +9,7 @@ According to the formula~\eqref{AmdalSFromP:equation}, $S(p)\;=\;\frac{T_1}{T_p}
 		\label{AmdalBuhunovsky:equation}
 		S(p,N)\;=\;\frac{T_1}{T_p}\;=\;\frac{N\;+\;M}{\alpha(p\;-\;1)N\;+\;\frac Np\;+\;M}
 	\end{equation}
-From the formula ~\eqref{AmdalBuhunovsky:equation} we can see that with an increase in the number of cores after a certain limit $S(p,N)$ will not grow as in Amdal’s law, since time will be spent a lot of time creating new flows. On the image~\ref{GraphAmdalBuhunovsky:image} it is clearly seen that $S(p,N)$ decreases with a large number of flows and becomes noticeably smaller $S(p)$ than Amdal even with a small value $\alpha$.
+From the formula ~\eqref{AmdalBuhunovsky:equation} we can see that with an increase in the number of cores after a certain limit $S(p,N)$ will not grow as in Amdahl’s law, since time will be spent a lot of time creating new threads. On the image~\ref{GraphAmdalBuhunovsky:image} it is clearly seen that $S(p,N)$ decreases with a large number of threads and becomes noticeably smaller $S(p)$ than Amdahl even with a small value $\alpha$.
 	\begin{figure}[H]
 		\includegraphics[width=1\linewidth]{GraphAmdalBuhunovsky}
 		\caption{\textit{Graph of parallel acceleration versus number of threads}}

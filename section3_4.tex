@@ -22,19 +22,21 @@ ID functions \textit{work-group} and \textit{work-item} are shown on  figure ~\r
 		\caption{\textit{OpenCL. Work with  work-group и work-item}}
 		\label{OpenCLWorkGroupItemExample:image}
 	\end{figure}
-	\par\textbf{Types of memory in OpenCL devices.} To interact with data, the programmer can use different levels of memory. On the figure ~\ref{OpenCLMemory:image} it we can see that the following types of memory exist:
+	\par\textbf{Types of memory in OpenCL devices.} To interact with data, the programmer can use different levels of memory. On the figure ~\ref{OpenCLMemory:image}  we can see the following types of memory exist:
 	\begin{itemize}
 		\item Private memory. The fastest of all kinds. Exclusive for every item of work.
 		\item Local memory. It can be used by the compiler with a large number of local variables in any function. In terms of speed characteristics, local memory is much slower than register memory. Access from work items in one work-group.
 		\item Constant memory. Fast enough of the available GPUs. It is possible to write data from the host, but at the same time, it is only possible to read data within the entire GPU. Dynamic allocation, unlike global memory, is not supported in constant memory.
 		\item Global memory. The slowest type of memory available from the GPU. Global variables can be selected using the specifier, as well as dynamically. The global memory is mainly used to store large amounts of data received on the device from the host’s. In algorithms requiring high performance, the number of operations with global memory must be minimized.
 	\end{itemize}	
+	The programmer must explicitly give copies between different memory.
 	\begin{figure}[H]
 		\includegraphics[width=1\linewidth]{OpenCLMemory}
 		\caption{\textit{Types of memory in OpenCL devices}}
 		\label{OpenCLMemory:image}
 	\end{figure}
-	The programmer must explicitly give copies between different memory.
+
+	
 		\par An OpenCL program may include the following sequence of actions:
 		\begin{enumerate}
 			\item\textbf{Platform choice:} clGetPlatformIDs, clGetPlatformInfo
@@ -51,7 +53,7 @@ ID functions \textit{work-group} and \textit{work-item} are shown on  figure ~\r
 			\item\textbf{Profiling:} clGetEventProfilingInfo
 		\end{enumerate}
 Next, we consider some of these actions in more detail.
-	\par\textbf{Platform, device, and context selection.}  \textit{(Context)} is required to manage OpenCL objects and resources. All OpenCL resources are context bound. The following data is associated with the context. (figure ~\ref{OpenCLContext:image}):
+	\par\textbf{Platform, device, and context selection.}  \textit{(Context)} is required to manage OpenCL objects and resources. All OpenCL resources are context bound. The following data is associated with the context (figure ~\ref{OpenCLContext:image}):
 		\begin{itemize}
 		\item devices
 		\item object objects
