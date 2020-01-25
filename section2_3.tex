@@ -1,6 +1,6 @@
 { %section2_3
 	\subsection{Gustavson-Barsis Method}
-	\par When evaluating the efficiency of parallelization of a certain program running a fixed time, the speed of execution can be expressed as follows: $\left.V(p)\right|_{t=const}\;=\;\frac {w(p)}t$, where $w(p)$ – t is the total amount of work that the program manages to complete during $ t $ when using $p$ processors. Then the expression~\eqref{parallelAcceleration:equation} for parallel acceleration will take the form:
+	\par When evaluating the efficiency of parallelization of a certain program running a fixed time, the speed of execution can be expressed as follows: $\left.V(p)\right|_{t=const}\;=\;\frac {w(p)}t$, where $w(p)$ – t is the total amount of work that the program manages to complete during $ t $ when using $p$ processors. Then the Expression~\eqref{parallelAcceleration:equation} for parallel acceleration will take the form:
 	\begin{equation}
 		\label{GustavsonAcceleration:equation}
 		\left.S(p)\right|_{t=const}\;=\;\frac{V(p)}{V(1)}\;=\;\frac{w(p)}t\;:\;\frac{w(1)}t\;=\;\frac{w(p)}{w(1)}.
@@ -13,7 +13,7 @@
 	where $k\in\lbrack0,1)$ – is the parallelism coefficient of the program. Then the first term can be considered the amount of work that perfectly parallelizes, and the second – the amount of work that fails to parallelize when adding processors (cores).
 	\par When using $p$ processors, the amount of work done $w(p)$ will obviously become larger, while it will consist of two terms:
 	\begin{itemize}
-		\item number of unparalleled work $(1-k)\cdot w(1)$, which does not change compared to the formula~\eqref{GustavsonWork:equation}.
+		\item number of unparalleled work $(1-k)\cdot w(1)$, which does not change compared to the Formula~\eqref{GustavsonWork:equation}.
 		\item amount of parallel work, the volume of which will increase by $p$ times in comparison with the formula ~\eqref{GustavnsonWork:equation},because $p$ processors will be used instead of one.
 	\end{itemize}
 	\par Given the above, we obtain the following expression for $w(p)$:

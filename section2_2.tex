@@ -1,5 +1,5 @@
 { %section2_2
-	\subsection{Amdal Method}
+	\subsection{Amdahl Method}
 	\par When evaluating the efficiency of parallelization of a program that performs a fixed amount of work, the speed of execution can be expressed as follows:$\left.V(p)\right|_{w=const}\;=\;\frac w{t(p)}$, where $w$  is the total amount of W/s contained in the program in question, $t(p)$ – runtime w using $ p $ processors. Then the expression for parallel acceleration will take the form:
 	\begin{equation}
 		\label{AmdalSFromP:equation}
@@ -9,8 +9,8 @@
 	\begin{equation}
 		t(1)\;=\;t(1)\;+\;(k\;\cdot\;t(1)\;-\;k\;\cdot\;t(1))\;=\;k\;\cdot\;t(1)\;+\;(1\;-\;k)\;\cdot\;t(1),
 	\end{equation}
-	where $k\;\in\;\lbrack0,1)$ – is the coefficient of parallelism of the program, by which we define the fraction of the time during which perfectly parallelized code is executed inside the program. Such code can be executed exactly $p$ times faster if the number of processors is increased by p times. Note that the coefficient $k$ is never equal to one, because any program always has unparalleled code that must be executed sequentially on one processor (core), even if there are several of them available. If for some program $k =0 $, then when you run this program on any number of processors $p$, it will be executed in the same time.
-	\par Considering that in Amdal’s method the amount of work remains unchanged for any $p$ (since $w = const$), we can guarantee that the value of $ k $ does not change in the experiments, therefore we can write:
+	where $k\;\in\;\lbrack0,1)$ - is the coefficient of parallelism of the program, by which we define the fraction of the time during which perfectly parallelized code is executed inside the program. Such code can be executed exactly $p$ times faster if the number of processors is increased by p times. Note that the coefficient $k$ is never equal to one, because any program always has unparalleled code that must be executed sequentially on one processor (core), even if there are several of them available. If for some program $k =0 $, then when you run this program on any number of processors $p$, it will be executed in the same time.
+	\par Considering that in Amdahl’s method the amount of work remains unchanged for any $p$ (since $w = const$), we can guarantee that the value of $ k $ does not change in the experiments, therefore we can write:
 	\begin{equation}
 		\label{AmdalTFromP:equation}
 		t(p)\;=\;\frac{k\;\cdot\;t(1)}p\;+\;(1\;-\;k)\;\cdot\;t(1),
@@ -20,11 +20,11 @@ where the first term gives the runtime of the parallelized ideally parallelized 
 		\label{AmdalLaw:equation}
 		\left.S(p)\right|_{w=const}\;=\;S_A(p)\;=\;\left(\frac kp\;+\;1\;-\;k\right)^{-1}
 	\end{equation}
-	better known as \textbf{Amdahl’s Law} - after the name of the American scientist Gene Amdal, who proposed this expression in 1967. Until now, this law is fundamental in the specialized literature on parallel computing, because allows you to get a theoretical upper limit for the speed of execution of a given program during parallelization.
-	\par The graph of parallel acceleration versus the number of cores is shown in the Figure \#~\ref{GraphAmdalSFromP:image}:
+	better known as \textbf{Amdahl’s Law} - after the name of the American scientist Gene Amdahl, who proposed this expression in 1967. Until now, this law is fundamental in the specialized literature on parallel computing, because allows you to get a theoretical upper limit for the speed of execution of a given program during parallelization.
+	\par The graph of parallel acceleration versus the number of cores is shown in the Figure~\ref{GraphAmdalSFromP:image}:
 	\begin{figure}[H]
 		\includegraphics[width=1\linewidth]{GraphAmdalSFromP}
-		\caption{\textit{A graph of the parallel acceleration on the number of cores in Amdal}}
+		\caption{\textit{A graph of the parallel acceleration on the number of cores in Amdahl}}
 		\label{GraphAmdalSFromP:image}
 	\end{figure}
 	\par Note that the expression for calculating parallel efficiency using the Amdahl method can be obtained by combining the formulas~\eqref{parallelEffect:equation} and~\eqref{AmdalLaw:equation} in that way:
