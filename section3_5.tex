@@ -9,12 +9,12 @@
 	\end{itemize}
 	\par Further, we consider in more detail the following incomplete list of typical errors that occur in parallel programs regardless of the parallelization technology used:
 	\begin{itemize}
-		\item Loss of precision in floating point operations.
-		\item Deadlocks
-		\item Race conditions.
-		\item АВА problems.
-		\item Inversion of priorities.
-		\item Starvation.
+		\item Loss of precision in floating point operations;
+		\item Deadlocks;
+		\item Race conditions;
+		\item АВА problems;
+		\item Inversion of priorities;
+		\item Starvation;
 		\item False Sharing.
 	\end{itemize}
 	\par\textbf{Loss of accuracy} If a parallel program is used for floating-point operations when working with variables located in the threads common memory, then each time the program is launched, a different result of material calculations may be obtained. This is because when several threads work at the same time, it is impossible to accurately predict in what order the operating system will provide the processor with these threads, because at any time, any thread can be temporarily suspended at the discretion of the OS. This in turn leads to an indefinite sequence of floating-point operations, the result of which, as you know, may depend on the order.

@@ -2,7 +2,7 @@
 	\subsection{Memory Managers for Parallel Programs}
 	\par When calling malloc / free functions in a single-threaded program, there are no problems even with a rather high call intensity of one of them. However, in parallel programs, these functions can become a bottleneck because when they are used simultaneously from several threads, a shared resource (memory management manager) is blocked, which can lead to a significant degradation in the speed of a multithreaded program.
 	\par Despite the formal thread safety of standard memory functions, they can become thread-inefficient when the memory of several threads running in parallel is very intensive.
-	\par To solve this problem, there are a number of third-party programs called the "Memory Management Manager (MUP)'' (Memory Allocator), both paid and free, open source. Each of them has its own advantages and disadvantages, which should be considered when choosing. We list the most common MUPs with links to official sites:
+	\par To solve this problem, there are a number of third-party programs called the "Memory Management Manager (MUP)"\ (Memory Allocator), both paid and free, open source. Each of them has its own advantages and disadvantages, which should be considered when choosing. We list the most common MUPs with links to official sites:
 	\begin{itemize}
 		\sloppy
 		\item tcmalloc: \url{http://goog-perftools.sourceforge.net/doc/tcmalloc.html}

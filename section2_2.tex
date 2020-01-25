@@ -9,29 +9,29 @@
 	\begin{equation}
 		t(1)\;=\;t(1)\;+\;(k\;\cdot\;t(1)\;-\;k\;\cdot\;t(1))\;=\;k\;\cdot\;t(1)\;+\;(1\;-\;k)\;\cdot\;t(1),
 	\end{equation}
-	where $k\;\in\;\lbrack0,1)$ - is the coefficient of parallelism of the program, by which we define the fraction of the time during which perfectly parallelized code is executed inside the program. Such code can be executed exactly $p$ times faster if the number of processors is increased by p times. Note that the coefficient $k$ is never equal to one, because any program always has unparalleled code that must be executed sequentially on one processor (core), even if there are several of them available. If for some program $k =0 $, then when you run this program on any number of processors $p$, it will be executed in the same time.
+	where $k\;\in\;\lbrack0,1)$ – is the coefficient of parallelism of the program, by which we define the fraction of the time during which perfectly parallelized code is executed inside the program. Such code can be executed exactly $p$ times faster if the number of processors is increased by p times. Note that the coefficient $k$ is never equal to one, because any program always has unparalleled code that must be executed sequentially on one processor (core), even if there are several of them available. If for some program $k =0 $, then when you run this program on any number of processors $p$, it will be executed in the same time.
 	\par Considering that in Amdal’s method the amount of work remains unchanged for any $p$ (since $w = const$), we can guarantee that the value of $ k $ does not change in the experiments, therefore we can write:
 	\begin{equation}
 		\label{AmdalTFromP:equation}
 		t(p)\;=\;\frac{k\;\cdot\;t(1)}p\;+\;(1\;-\;k)\;\cdot\;t(1),
 	\end{equation}
-where the first term gives the runtime of the parallelized ideally parallelized code by $p$ times, and the second term gives the runtime of the unparalleled code, which does not change for any $p$. Substituting the formula~\eqref{AmdalTFromP:equation} in~\eqref{AmdalSFromP:equation}, we get the expression $$\left.S(p)\right|_{w=const}\;=\;\frac{t(1)}{t(p)}\;=\;\frac{t(1)}{{\displaystyle\frac{k\;\cdot\;t(1)}p}\;+\;(1\;-\;k)\;\cdot\;t(1)}\;=\;\frac1{{\displaystyle\frac kp}\;+\;1\;-\;k},$$ which we rewrite in the form
+where the first term gives the runtime of the parallelized ideally parallelized code by $p$ times, and the second term gives the runtime of the unparalleled code, which does not change for any $p$. Substituting the Formula~\eqref{AmdalTFromP:equation} in~\eqref{AmdalSFromP:equation}, we get the expression $$\left.S(p)\right|_{w=const}\;=\;\frac{t(1)}{t(p)}\;=\;\frac{t(1)}{{\displaystyle\frac{k\;\cdot\;t(1)}p}\;+\;(1\;-\;k)\;\cdot\;t(1)}\;=\;\frac1{{\displaystyle\frac kp}\;+\;1\;-\;k},$$ which we rewrite in the form
 	\begin{equation}
 		\label{AmdalLaw:equation}
 		\left.S(p)\right|_{w=const}\;=\;S_A(p)\;=\;\left(\frac kp\;+\;1\;-\;k\right)^{-1}
 	\end{equation}
 	better known as \textbf{Amdahl’s Law} - after the name of the American scientist Gene Amdal, who proposed this expression in 1967. Until now, this law is fundamental in the specialized literature on parallel computing, because allows you to get a theoretical upper limit for the speed of execution of a given program during parallelization.
-	\par The graph of parallel acceleration versus the number of cores is shown in the figure.~\ref{GraphAmdalSFromP:image}:
+	\par The graph of parallel acceleration versus the number of cores is shown in the Figure \#~\ref{GraphAmdalSFromP:image}:
 	\begin{figure}[H]
 		\includegraphics[width=1\linewidth]{GraphAmdalSFromP}
 		\caption{\textit{A graph of the parallel acceleration on the number of cores in Amdal}}
 		\label{GraphAmdalSFromP:image}
 	\end{figure}
-	\par Note that the expression for calculating parallel efficiency using the Amdahl method can be obtained by combining the formulas~\eqref{parallelEffect:equation} и~\eqref{AmdalLaw:equation}, а именно:
+	\par Note that the expression for calculating parallel efficiency using the Amdahl method can be obtained by combining the formulas~\eqref{parallelEffect:equation} and~\eqref{AmdalLaw:equation} in that way:
 	\begin{equation}
-		E_A(p)\;=\;\left(k\;+\;p\;-\;p\;\cdot\;k\right)^{-1}
+		E_A(p)\;=\;\left(k\;+\;p\;-\;p\;\cdot\;k\right)^{-1}.
 	\end{equation}
-	\par An important assumption of Amdahl's law is the idealization of the physical meaning of the quantity $k$. It consists in the assumption that a perfectly parallelized code will give a linear increase in speed when $ p $ changes from $0$ to $+\infty$ . When solving real problems, it is necessary to limit this interval from above to some finite positive value $p_{max}$ or to exclude from this interval all values that are not multiples of a certain quantity that usually sets the dimension of the problem.
+	\par An important assumption of Amdahl's law is the idealization of the physical meaning of the quantity $k$. It consists in the assumption that a perfectly parallelized code will give a linear increase in speed when $ p $ changes from $0$ to $+\infty$. When solving real problems, it is necessary to limit this interval from above to some finite positive value $p_{max}$ or to exclude from this interval all values that are not multiples of a certain quantity that usually sets the dimension of the problem.
 	\par For example, the code of a program that performs convolutional coding independently for five equal-sized files can give linear acceleration when $p$ changes from $1$ to $5$, but even with $p = 6$ it will most likely show a zero increase in the speed of the task (in comparison with solution for $p = 5$). This is because convolutional coding, also known as convolutional coding, is fundamentally un-parallelizable when coding the selected data block.
 	\par
 }
