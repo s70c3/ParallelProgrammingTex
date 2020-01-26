@@ -1,8 +1,8 @@
 { %section4_4
 	\subsection{Task variants}
-	\par The task variants are selected in accordance with the following description of the stages, given that the number A = LN*FN*SN, where LN, FN, and SN mean the number of letters in the last name, first name and second name of the student. You select the variant number in the corresponding tables by the formula X = 1 + ((A mod 47) mod B), where В is the number of elements in the corresponding table, and the mod operation means the remainder of the division. For example, if А = 476 and В = 5, we get \textbf{Х = 1 + ((470+6) mod 47) mod 5) = 1 + (6 mod 5) = 2}. The order of calculation must be as follows:
+	\par The task variants are selected in accordance with the following description of the stages, given that the number $ A = LN*FN $, where LN and FN mean the number of letters in the last name and the first name of the student. You select the variant number in the corresponding tables by the formula $ X = 1 + ((A\ mod\ 47)\ mod\ B) $, where В is the number of elements in the corresponding table, and the mod operation means the remainder of the division. For example, if $A=476$ and $B=5$, we get $\textbf{Х = 1 + ((470+6) mod 47) mod 5) = 1 + (6 mod 5) = 2}$. The order of calculation must be as follows:
 	\begin{enumerate}
-		\item\textbf{Generate Stage.} Form an array M1 of dimension N, filling it with the function rand\textunderscore r (you cannot use rand) with random real numbers that have a uniform law in the range from 1 to A inclusively. Similarly, form an array of M2 of dimension N / 2 with random real numbers in the range from A to 10*A.
+		\item\textbf{Generate Stage.} Form an array M1 of dimension $ N $, filling it with the function \texttt{rand\textunderscore r} (you cannot use \texttt{rand}) with random real numbers that have a uniform law in the range from 1 to A inclusively. Similarly, form an array of M2 of dimension N / 2 with random real numbers in the range from $ A $ to $ 10*A $.
 		\item\textbf{Map Stage.} Apply an operation from the table to each element in the M1 array:
 			\begin{center}
 				\begin{tabular}{|c|c|}
@@ -21,7 +21,7 @@
 					\hline
 					6 & \specialcell{Cubic root after division by e} \\
 					\hline
-					7 & \specialcell{Square root exponent\\ (i.e. M1[i] = exp(sqrt(M1[i])))} \\
+					7 & \specialcell{Square root exponent\\ (i.e. $ M1[i] = exp(sqrt(M1[i]))) $} \\
 					\hline
 				\end{tabular}
 			\end{center}
@@ -31,7 +31,7 @@
 					\hline
 					\specialcell{\textbf{Number of}\\ \textbf{the variant}} & \textbf{Operation} \\
 					\hline
-					1 & Sine modulus (i.e. M2[i] = |sin(M2[i] + M2[i-1])|) \\
+					1 & Sine modulus (i.e. $ M2[i] = |sin(M2[i] + M2[i-1])| $) \\
 					\hline
 					2 & Cosine modulus \\
 					\hline
@@ -55,13 +55,13 @@
 					\hline
 					\specialcell{\textbf{Number of}\\ \textbf{the variant}} & \textbf{Operation} \\
 					\hline
-					1 & Raising to a power (i.e. M2[i] = M1[i]\verb+^+M2[i]) \\
+					1 & Raising to a power (i.e. $ M2[i] = M1[i]\verb+^+M2[i]$) \\
 					\hline
-					2 & Division (i.e. M2[i] = M1[i]/M2[i]) \\
+					2 & Division (i.e. $ M2[i] = M1[i]/M2[i] $) \\
 					\hline
 					3 & Multiplication \\
 					\hline
-					4 & Selecting the larger (i.e. M2[i] = max(M1[i],M2[i]))) \\
+					4 & Selecting the larger (i.e. $ M2[i] = max(M1[i],M2[i])) $) \\
 					\hline
 					5 & Selecting the smaller \\
 					\hline
