@@ -26,7 +26,7 @@ Usually the last two concepts are physically implemented using architectures. \t
 			\item\textbf{Thread} It runs independently of other threads, but has a common address space with other threads in the same process. At this level, data synchronization mechanisms are used (will be discussed later).
 			\item\textbf{Fiber} - lightweight thread of execution. Like threads, fiber has a common address space, however, it uses joint multitasking instead of preemptive one. The OS does not switch the context from one thread to another, instead, the main thread itself allocates time for the child fiber to work, or is blocked logically (that is, the programmer controls the fiber life cycle). Also, all fibers work on one core, unlike threads, which can work on different kernels.
 		\end{itemize}
-	\par For a better understanding of threads, we will schematically consider its life cycle. Figure ~\ref{threadLifecycle:image} shows that the thread can be in three states - readiness, expectation and fulfillment. After creating the thread, it is in a ready state. Then, the OS decides to change its state (clarifying multitasking). For fiber, the life cycle is the same, but the programmer or synchronization mechanisms control the transitions between them.
+	\par For a better understanding of threads, we will schematically consider its life cycle. Figure ~\ref{threadLifecycle:image} shows that the thread can be in three states - running, waiting and ready. After creating the thread, it is in a ready state. Then, the OS decides to change its state (clarifying multitasking). For fiber, the life cycle is the same, but the programmer or synchronization mechanisms control the transitions between them.
 	\par Different standards of programming languages can add new states to the life cycle of threads, for example, blocking a thread, interrupting a thread, and others, but the general scheme of work remains the same.
 		\begin{figure}[H]
 			\includegraphics[width=0.9\linewidth]{threadLifecycle}
@@ -38,11 +38,18 @@ Usually the last two concepts are physically implemented using architectures. \t
 		\caption{Definitions of thread-safe and reentrant functions}
 		\label{threadSafeReentrant:table}
 		\begin{center}
-			%\begin{tabular}{c}
-				%\begin{figure}[H]
-					\includegraphics[width=1\linewidth]{parallelFunctionTypes}
-				%\end{figure}
-			%\end{tabular}
+			\begin{tabularx} {\textwidth} { |c|X|X| }
+				\hline 
+		\textbf{	Source of definition}	& \textbf{Thread-safe} & \textbf{Reentrant} \\ 
+				\hline 
+				Qt & Inside the function, all common variables are accessed strictly sequentially, and not in parallel (Thread-safe is reentrant, but not vice versa)  &  Function is called by multiple threads at the same time the correct operation is guaranteed only if the threads do not use shared data \\ 
+				\hline 
+			Linux	&  The function shows the correct results, even if called by several threads at the same time. & The function shows the correct results, even if re-called internally. \\ 
+				\hline
+			POSIX	& \center{ ? } & The function shows the correct results, even if called by multiple threads at the same time. \\ 
+				\hline 
+			\end{tabularx} 
+
 		\end{center}
 	\end{table}
 	\par Consider examples of functions that fit the definition of the Linux community.
