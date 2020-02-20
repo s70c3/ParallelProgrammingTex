@@ -12,7 +12,7 @@
 		\item Loss of precision in floating point operations;
 		\item Deadlocks;
 		\item Race conditions;
-		\item АВА problems;
+		\item ABA problems;
 		\item Inversion of priorities;
 		\item Starvation;
 		\item False Sharing.
@@ -24,7 +24,7 @@
 	\end{figure}
 	\par The variable s sums up the results of real calculations with eight threads. The result is s = 14.393189. However, if only one thread executes the same program (for this you need to set the parameter num \textunderscore threads to 1 in line 3), the result will be different: $s=14.357357$. The difference between the two values is approximately 0.25 \%.
 	\par t turns out that a parallel program can give different results when launched on different platforms. This should be taken into account when verifying parallel programs using their single-threaded unparalleled analogues.
-	\par\textbf{Deadlocks.} One of the commonly used synchronization primitives is a mutex, which allows several threads to consistently and sequentially execute critical areas of code located inside parallel sections of code. Critical sections slow down the program, because at each moment of time, only one thread can be inside the critical section. Using mutexes, for example, omp functions are implemented \textunderscore set\textunderscore lock and omp\textunderscore unset\textunderscore lock в OpenMP. When these functions frame a certain section of code, you can make a critical section from it, the entrance to which is controlled by a conditional program lock. In complex programs can use several locks. This can lead to the fact that two threads, capturing several locks, stop the execution of each other without any possibility to exit the state of waiting for each other. This situation is called deadlock.
+	\par\textbf{Deadlocks.} One of the commonly used synchronization primitives is a mutex, which allows several threads to consistently and sequentially execute critical areas of code located inside parallel sections of code. Critical sections slow down the program, because at each moment of time, only one thread can be inside the critical section. Using mutexes, for example, omp functions are implemented \textunderscore set\textunderscore lock and omp\textunderscore unset\textunderscore lock in OpenMP. When these functions frame a certain section of code, you can make a critical section from it, the entrance to which is controlled by a conditional program lock. In complex programs can use several locks. This can lead to the fact that two threads, capturing several locks, stop the execution of each other without any possibility to exit the state of waiting for each other. This situation is called deadlock.
 	\par The simplest example of deadlock is the operation of two threads, the first of which captures lock 1, then lock 2, and the second first captures lock 2, then lock 1. As a result, deadlock occurs if the operations are performed in the following order:
 	\begin{itemize}
 \item thread1 captured lock 1;

@@ -9,7 +9,7 @@ A method of organizing calculations in which the program is a set of interacting
 			\item\textbf{Multi core programming} –  a method for solving computational problems with simultaneous execution of program parts on different physical computing cores. All cores have shared memory banks, as they are located on the same computer. It includes the case of a multi-core processor architecture and a multi-processor architecture of a system in which there are several processors, since in both cases the program runs on several cores of one or many processors, but on one physical computer.
 			\item\textbf{Distributed computing} – a way to solve time-consuming computing problems using several computers, most often combined into a parallel computing system. Different parts of the program can run on different computers.
 		\end{enumerate}
-Usually the last two concepts are physically implemented using architectures \textit{SMP} и \textit{MMP}. More details about these architectures can be found in the next section.
+Usually the last two concepts are physically implemented using architectures \textit{SMP} and \textit{MMP}. More details about these architectures can be found in the next section.
 	\par It is important to see difference between the concepts of parallel compu-ting and parallel technologies. Let  analyze the following concepts, which, although they are parallel technologies (at the core or internuclear interaction level), however, are not parallel calculations, but often \ textbf {by mistake} are assigned to them:
 		\begin{itemize}
 			\item\textit{Pipeline data processing (superscalarity)} represents the simultaneous processing by the processor of several instructions, in which at one time for each of the instructions a different execution step is performed. For example, if any processor can simultaneously receive, decode, and execute an instruction, then when it receives the first instruction, it can decode the second and execute the third (Figure~\ref {pipelineExample:image}). This way of organizing calculations is not parallel computing, because the instructions are still executed sequentially, and only one core is involved.
@@ -34,7 +34,7 @@ Usually the last two concepts are physically implemented using architectures \te
 			\caption{\textit{Thread lifecycle}}
 			\label{threadLifecycle:image}
 		\end{figure}
-	\par Among programmers there are concepts of \textbf{thread-safe} и \textbf{reentrant} functions, however, they may have different meanings in different communities. Table~\ref{threadSafeReentrant:table} provides definitions from different sources.
+	\par Among programmers there are concepts of \textbf{thread-safe} and \textbf{reentrant} functions, however, they may have different meanings in different communities. Table~\ref{threadSafeReentrant:table} provides definitions from different sources.
 	\begin{table}[H]
 		\caption{Definitions of thread-safe and reentrant functions}
 		\label{threadSafeReentrant:table}

@@ -6,7 +6,7 @@
 			\begin{figure}[H]
 				\lstinputlisting{lab1Example.cpp}
 			\end{figure}
-		\item Сompile the program without using automatic parallelization following the next command: "\texttt{/home/user/gcc -O3 -Wall -Werror \\-o lab1-seq lab1.c}"
+		\item Compile the program without using automatic parallelization following the next command: "\texttt{/home/user/gcc -O3 -Wall -Werror \\-o lab1-seq lab1.c}"
 		\item Compile the written program using the built-in GCC tool for automatic parallelization (Graphite) with the following command  "\texttt{/home/user/\\gcc -O3 -Wall -Werror -floop-parallelize-all \\-ftree-parallelize-loops=K lab1.c -o lab1-par-K}” \\(assign at least 4 different integer values to the variable $ K $ in turn and explain your choice).
 		\item The result is one non-parallelized program and four or more parallelized programs.
 		\item Close all application programs running on the operating system (including Winamp, uTorrent, browsers, and Skype) so that they do not affect the results of subsequent experiments.
