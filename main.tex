@@ -88,6 +88,14 @@
 
 \begin{document}
 %	\include{description} %incorrect year!!!
+	\pagestyle{empty} %for empty page number
+
+	\include{CoverTitlePage}
+	\include{TitlePage}
+
+	\pagestyle{plain} %for counting pages
+	\setcounter{page}{2}
+
 	\include{tableOfContents}
 	\include{introduction}
 	\include{section1}
